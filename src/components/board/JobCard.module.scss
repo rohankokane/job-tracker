@@ -1,0 +1,27 @@
+@use 'theme';
+
+.card {
+  width: 100%;
+  .cardContent {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 2px theme.$gray-500;
+
+    &:hover {
+      background-color: theme.$gray-250;
+      // border: 1px solid theme.$gray-500;
+      // border-color: theme.$gray-500;
+    }
+  }
+}
+.drag {
+  .cardContent {
+    box-shadow: 5px 10px 30px 5px theme.$gray-500;
+    // box-shadow: 0 5px 20px theme.$gray-500;
+    // border-width: 3px;
+    // border-color: rgba(108, 45, 255, 0.692);
+    transform: rotateZ(3deg);
+  }
+}

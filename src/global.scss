@@ -1,0 +1,10 @@
+@use 'base';
+@use 'theme';
+@import-normalize;
+
+main {
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
+  padding-top: theme.$nav-height + 1rem;
+}
