@@ -13,9 +13,5 @@ export type JobType = {
 }
 
 export type StateType = {
-  saved: JobType[]
-  applied: JobType[]
-  interview: JobType[]
-  offer: JobType[]
-  rejected: JobType[]
+  [k: string]: JobType[]
 }

@@ -1,7 +1,7 @@
 import useLocalStorageState from 'hooks/useLocalStorage'
 import { createContext } from 'react'
 import { Action } from 'types'
-import { StateType } from 'types/state'
+import { StateType } from 'types'
 
 const initialState = {
   saved: [],

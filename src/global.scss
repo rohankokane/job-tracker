@@ -8,3 +8,25 @@ main {
   overflow-y: hidden;
   padding-top: theme.$nav-height + 1rem;
 }
+.unavailable {
+  font-weight: 500;
+  color: theme.$gray-900;
+}
+::-webkit-scrollbar {
+  width: 11px;
+  padding: 0;
+  height: 14px;
+  border: 1px solid transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 1px solid transparent;
+
+  border: 4px solid transparent;
+  box-shadow: inset 0 0 10px 10px rgb(25 4 69 / 15%);
+  background-color: transparent;
+}
+:-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 4px solid transparent;
+}

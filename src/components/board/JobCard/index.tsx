@@ -1,10 +1,12 @@
 import { Draggable } from 'react-beautiful-dnd'
+import { JobType } from 'types'
 import styles from './JobCard.module.scss'
 interface CardProps {
   id: string
   index: number
+  jobData: JobType
 }
-function JobCard({ id, index }: CardProps) {
+function JobCard({ id, index, jobData }: CardProps) {
   // let isBeingDragged={snapshot.isDragging && !snapshot.isDropAnimating}
   return (
     <Draggable draggableId={id.toString()} index={index}>
@@ -17,7 +19,7 @@ function JobCard({ id, index }: CardProps) {
           }`}
           ref={provided.innerRef}
         >
-          <div className={styles.cardContent}>JobCard</div>
+          <div className={styles.cardContent}>{jobData.title}</div>
         </div>
       )}
     </Draggable>

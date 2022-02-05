@@ -4,7 +4,7 @@ import { useContext } from 'react'
 function useBoard() {
   const state = useContext(BoardContext)
   if (!state) {
-    throw new Error('useCount must be used within a ListProvider')
+    throw new Error('useBoard must be used within a BoardProvider')
   }
 
   return state

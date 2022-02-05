@@ -1,23 +1,25 @@
 @use 'theme';
 
 .list {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   height: 100%;
   width: 100%;
-  min-width: 250px;
-  max-width: 300px;
+  max-height: 85vh;
   background-color: theme.$gray-100;
   border-radius: 5px;
-  padding: 1rem;
+  overflow-y: scroll;
+  padding: 0.5rem 0 1rem 11px;
 }
 .container {
   width: 100%;
 }
 .dragactive {
-  box-shadow: inset 0rem 0rem 0rem 3px theme.$brand-100;
+  // box-shadow: inset 0rem 0rem 0rem 3px theme.$brand-100;
+  background-color: theme.$brand-50;
 }
 .dragcomplete {
   background-color: rgba(12, 12, 12, 0.541);

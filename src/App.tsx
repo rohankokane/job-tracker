@@ -1,9 +1,10 @@
-import NavBar from 'components/navbar'
+import NavBar from 'components/Navbar'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorFallback from 'components/ErrorFallback'
 import JobBoard from 'screens/JobBoard'
 import { Route, Routes } from 'react-router-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
+import BoardProvider from 'contexts/BoardContext'
 
 function App(): JSX.Element {
   return (
@@ -11,7 +12,9 @@ function App(): JSX.Element {
       <NavBar />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Router>
-          <AppRoutes />
+          <BoardProvider>
+            <AppRoutes />
+          </BoardProvider>
         </Router>
       </ErrorBoundary>
     </main>
