@@ -1,3 +1,4 @@
+import Button from 'components/shared/Button'
 import styles from './Navbar.module.scss'
 
 function NavBar() {
@@ -5,6 +6,7 @@ function NavBar() {
     <nav className={styles.nav}>
       <ul>
         <li>Job Board</li>
+        <Button>Add</Button>
       </ul>
     </nav>
   )

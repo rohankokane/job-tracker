@@ -1,12 +1,28 @@
 import { Draggable } from 'react-beautiful-dnd'
 import { JobType } from 'types'
 import styles from './JobCard.module.scss'
+import { FiTrash } from 'react-icons/fi'
+import IconButton from 'components/shared/IconButton'
+import { useDispatch } from 'hooks/useDispatch'
+
 interface CardProps {
   id: string
   index: number
   jobData: JobType
 }
 function JobCard({ id, index, jobData }: CardProps) {
+  const dispatch = useDispatch()
+  const onDelete = () => {
+    const [listId, itemIndex] = id.split('-')
+    console.log('delete ', listId, itemIndex)
+    dispatch({
+      type: 'DELETE',
+      payload: {
+        listId,
+        itemIndex,
+      },
+    })
+  }
   // let isBeingDragged={snapshot.isDragging && !snapshot.isDropAnimating}
   return (
     <Draggable draggableId={id.toString()} index={index}>
@@ -19,7 +35,12 @@ function JobCard({ id, index, jobData }: CardProps) {
           }`}
           ref={provided.innerRef}
         >
-          <div className={styles.cardContent}>{jobData.title}</div>
+          <div className={styles.cardContent}>
+            {jobData.company} - {jobData.title}
+            <IconButton className={styles.deleteBtn} onClick={onDelete}>
+              <FiTrash />
+            </IconButton>
+          </div>
         </div>
       )}
     </Draggable>

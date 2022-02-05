@@ -1,0 +1,8 @@
+@use 'theme';
+
+.iconBtn {
+  background-color: theme.$gray-500;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 50%;
+}

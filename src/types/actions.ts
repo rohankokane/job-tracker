@@ -1,4 +1,4 @@
-import { DraggableLocation, DragUpdate, DropResult } from 'react-beautiful-dnd'
+import { DraggableLocation } from 'react-beautiful-dnd'
 import { StateType } from './state'
 
 export type Action =
@@ -14,4 +14,10 @@ export type Action =
       }
     }
   | { type: 'UPDATE' }
-  | { type: 'DELETE' }
+  | {
+      type: 'DELETE'
+      payload: {
+        listId: string
+        itemIndex: string
+      }
+    }

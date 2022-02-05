@@ -3,7 +3,7 @@ import { createContext } from 'react'
 import { Action } from 'types'
 import { StateType } from 'types'
 
-const initialState = {
+const initialState: StateType = {
   saved: [],
   applied: [],
   interview: [],

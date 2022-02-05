@@ -10,9 +10,6 @@ import JobListTable from 'components/board/JobListTable'
 function JobBoard() {
   const state = useBoard()
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch({ type: 'ADD', payload: mockData })
-  }, [])
 
   const onDragEnd = (result: DropResult) => {
     console.log({ result })

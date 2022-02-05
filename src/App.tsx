@@ -9,13 +9,13 @@ import BoardProvider from 'contexts/BoardContext'
 function App(): JSX.Element {
   return (
     <main>
-      <NavBar />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Router>
-          <BoardProvider>
+        <BoardProvider>
+          <NavBar />
+          <Router>
             <AppRoutes />
-          </BoardProvider>
-        </Router>
+          </Router>
+        </BoardProvider>
       </ErrorBoundary>
     </main>
   )

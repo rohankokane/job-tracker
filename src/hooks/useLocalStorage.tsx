@@ -16,20 +16,19 @@ const LOCAL_STORAGE_KEY: string = process.env.REACT_APP_LOCALSTORAGE_KEY!
 
 // function useLocalStorageState<R, I>(
 
-const getInitialState = (initialStateVal: StateType): StateType => {
+const getInitialState = (initialState: StateType): StateType => {
   const valueInLocalStorage: string | null =
     window.localStorage.getItem(LOCAL_STORAGE_KEY)
   if (valueInLocalStorage) {
     return JSON.parse(valueInLocalStorage)
   }
-  return initialStateVal
+  return initialState
 }
 
 function useLocalStorageState(
   initialState: StateType
 ): [StateType, React.Dispatch<Action>] {
   const [state, dispatch] = useReducer(reducer, initialState, getInitialState)
-
   const prevKeyRef = React.useRef(LOCAL_STORAGE_KEY)
 
   React.useEffect(() => {
@@ -39,8 +38,9 @@ function useLocalStorageState(
     }
     prevKeyRef.current = LOCAL_STORAGE_KEY
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
-  }, [state, LOCAL_STORAGE_KEY])
+  }, [state])
 
+  console.log('LOCAL hook', { state, dispatch })
   return [state, dispatch]
 }
 
