@@ -1,6 +1,6 @@
 import NavBar from 'components/Navbar'
 import { ErrorBoundary } from 'react-error-boundary'
-import ErrorFallback from 'components/ErrorFallback'
+import ErrorFallback from 'components/shared/ErrorFallback'
 import JobBoard from 'screens/JobBoard'
 import { Route, Routes } from 'react-router-dom'
 import { BrowserRouter as Router } from 'react-router-dom'

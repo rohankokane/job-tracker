@@ -1,0 +1,16 @@
+@use 'theme';
+
+.circleBtn {
+  border-radius: 30px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: theme.$black-font;
+  border: 1px solid theme.$gray-100;
+  cursor: pointer;
+}
