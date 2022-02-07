@@ -1,10 +1,10 @@
+import { JobType } from './state'
 import { DraggableLocation } from 'react-beautiful-dnd'
-import { StateType } from './state'
 
 export type Action =
   | {
       type: 'ADD'
-      payload: StateType
+      payload: JobType
     }
   | {
       type: 'DRAG_COMPLETE'

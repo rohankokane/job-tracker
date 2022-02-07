@@ -5,9 +5,11 @@ export default function reducer(state: StateType, action: Action) {
   console.log({ state, action })
   switch (action.type) {
     case 'ADD': {
+      // const data = action.payload
+
       return {
         ...state,
-        ...action.payload,
+        // ...action.payload,
       }
     }
 

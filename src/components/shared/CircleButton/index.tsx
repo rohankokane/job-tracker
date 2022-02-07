@@ -1,14 +1,23 @@
 import styles from './CircleButton.module.scss'
 
-function CircleButton({
-  children,
-  onClick,
-}: {
+interface CircleButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode
   onClick?: () => void
-}) {
+}
+
+function CircleButton({
+  children,
+  className,
+  onClick,
+  ...props
+}: CircleButtonProps) {
   return (
-    <button type='button' className={styles.circleBtn} onClick={onClick}>
+    <button
+      type='button'
+      className={styles.circleBtn + ' ' + className}
+      onClick={onClick}
+      {...props}
+    >
       {children}
     </button>
   )

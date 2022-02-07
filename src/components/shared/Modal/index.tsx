@@ -4,6 +4,7 @@ import { callAll } from 'utils/callAll'
 import CircleButton from '../CircleButton'
 import Dialog from '../Dialog'
 import { FiX } from 'react-icons/fi'
+import { DialogProps } from '@reach/dialog'
 
 type ModalContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 
@@ -18,15 +19,62 @@ function Modal({ children }: { children: React.ReactNode }) {
     </ModalContext.Provider>
   )
 }
+{
+  /* <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+<ModalDismissButton>
+  <CircleButton>
+    <VisuallyHidden>Close</VisuallyHidden>
+    <FiX aria-hidden />
+  </CircleButton>
+</ModalDismissButton>
+</div> */
+}
+
+function ModalHeader({
+  children,
+  title,
+}: {
+  children?: React.ReactNode
+  title: string
+}) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '0.5rem',
+      }}
+    >
+      <h3 style={{ textAlign: 'left', fontSize: '1.5em' }}>{title}</h3>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}
+      >
+        {children}
+        <ModalDismissButton>
+          <CircleButton>
+            <VisuallyHidden>Close</VisuallyHidden>
+            <FiX size={'20'} aria-hidden />
+          </CircleButton>
+        </ModalDismissButton>
+      </div>
+    </div>
+  )
+}
 
 function ModalDismissButton({ children }: { children: React.ReactElement }) {
   const child = children
   const [, setIsOpen] = React.useContext(ModalContext)
   return React.cloneElement(child, {
     onClick: callAll(() => {
-      console.log('dismiss')
+      console.log('dismiss modal')
       setIsOpen(false)
     }, child.props.onClick),
+    ariaLabel: 'close',
   })
 }
 
@@ -35,27 +83,30 @@ function ModalOpenButton({ children }: { children: React.ReactElement }) {
   const [, setIsOpen] = React.useContext(ModalContext)
   return React.cloneElement(child, {
     onClick: callAll(() => {
-      console.log('open')
+      console.log('open modal')
       setIsOpen(true)
     }, child.props.onClick),
   })
 }
 
-function ModalDeleteButton({ children }: { children: React.ReactElement }) {
-  const child = children
-  const [, setIsOpen] = React.useContext(ModalContext)
-  return React.cloneElement(child, {
-    onClick: callAll(() => {
-      console.log('delete')
-      setIsOpen(true)
-    }, child.props.onClick),
-  })
-}
+// function ModalDeleteButton({ children }: { children: React.ReactElement }) {
+//   const child = children
+//   const [, setIsOpen] = React.useContext(ModalContext)
+//   return React.cloneElement(child, {
+//     onClick: callAll(() => {
+//       console.log('delete')
+//       setIsOpen(true)
+//     }, child.props.onClick),
+//   })
+// }
 
-interface ModalContentsBaseProps extends React.HTMLAttributes<HTMLElement> {
+// interface ModalContentsBaseProps {
+//   children: React.ReactNode
+// }
+interface ModalContentsProps extends React.HTMLProps<HTMLButtonElement> {
   children: React.ReactNode
 }
-function ModalContentsBase({ children, ...props }: ModalContentsBaseProps) {
+function ModalContentsBase({ children, ...props }: ModalContentsProps) {
   const [isOpen, setIsOpen] = React.useContext(ModalContext)
   return (
     <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} {...props}>
@@ -64,25 +115,14 @@ function ModalContentsBase({ children, ...props }: ModalContentsBaseProps) {
   )
 }
 
-interface ModalContentsProps extends React.HTMLAttributes<HTMLElement> {
-  title: string
-  children: React.ReactNode
-}
-function ModalContents({ title, children, ...props }: ModalContentsProps) {
-  return (
-    <ModalContentsBase {...props}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <ModalDismissButton>
-          <CircleButton>
-            <VisuallyHidden>Close</VisuallyHidden>
-            <FiX aria-hidden />
-          </CircleButton>
-        </ModalDismissButton>
-      </div>
-      <h3 style={{ textAlign: 'center', fontSize: '2em' }}>{title}</h3>
-      {children}
-    </ModalContentsBase>
-  )
+function ModalContents({ children, ...props }: ModalContentsProps) {
+  return <ModalContentsBase {...props}>{children}</ModalContentsBase>
 }
 
-export { Modal, ModalDismissButton, ModalOpenButton, ModalContents }
+export {
+  Modal,
+  ModalHeader,
+  ModalDismissButton,
+  ModalOpenButton,
+  ModalContents,
+}

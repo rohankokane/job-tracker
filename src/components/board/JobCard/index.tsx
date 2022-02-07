@@ -4,6 +4,7 @@ import styles from './JobCard.module.scss'
 import { FiTrash } from 'react-icons/fi'
 import IconButton from 'components/shared/IconButton'
 import { useDispatch } from 'hooks/useDispatch'
+import CircleButton from 'components/shared/CircleButton'
 
 interface CardProps {
   id: string
@@ -37,9 +38,13 @@ function JobCard({ id, index, jobData }: CardProps) {
         >
           <div className={styles.cardContent}>
             {jobData.company} - {jobData.title}
-            <IconButton className={styles.deleteBtn} onClick={onDelete}>
+            <CircleButton
+              className={styles.deleteBtn}
+              aria-label='delete'
+              onClick={onDelete}
+            >
               <FiTrash />
-            </IconButton>
+            </CircleButton>
           </div>
         </div>
       )}

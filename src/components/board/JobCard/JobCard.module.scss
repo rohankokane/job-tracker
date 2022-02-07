@@ -2,6 +2,7 @@
 
 .card {
   width: 100%;
+  cursor: pointer !important;
   .cardContent {
     display: flex;
     flex-direction: row;
@@ -13,7 +14,7 @@
     background-color: white;
     border-radius: 5px;
     padding: 0.8rem;
-    box-shadow: 0 2px 2px theme.$gray-500;
+    box-shadow: theme.$card-shadow;
     .deleteBtn {
       display: none;
       cursor: pointer;
@@ -32,9 +33,6 @@
 .drag {
   .cardContent {
     box-shadow: 5px 10px 30px 5px theme.$gray-500;
-    // box-shadow: 0 5px 20px theme.$gray-500;
-    // border-width: 3px;
-    // border-color: rgba(108, 45, 255, 0.692);
     transform: rotateZ(3deg);
   }
 }

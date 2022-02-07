@@ -8,7 +8,7 @@ function Button({
   props?: React.HTMLProps<HTMLButtonElement>[]
 }) {
   return (
-    <button type='button' className={'primary' + ' btn'} {...props}>
+    <button type='button' className={type + ' btn'} {...props}>
       {children}
     </button>
   )

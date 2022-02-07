@@ -4,6 +4,16 @@
   font-weight: 600;
   color: theme.$black-font;
   margin-bottom: 0.8rem;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 0.8rem;
+  .headingIcon {
+    font-size: 1.3rem;
+    padding: 0px 12px 0px 0px;
+  }
 }
 .listContainer {
   display: flex;

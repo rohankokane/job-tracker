@@ -44,3 +44,49 @@ main {
     }
   }
 }
+.secondary {
+  &.btn {
+    display: inline-block;
+    color: theme.$brand-600;
+    background-color: theme.$brand-50;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: theme.$brand-100;
+    }
+  }
+}
+label.required:after {
+  content: '*';
+  color: red;
+}
+input[type='text'] {
+  border: none;
+  background-color: theme.$gray-100;
+  padding: 0.5rem 0.6rem;
+  margin: 0.4rem 0;
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px theme.$brand-200;
+  }
+  &:invalid {
+    box-shadow: 0 0 0 3px theme.$invalid-red;
+  }
+  &.w-100 {
+    display: block;
+    width: 100%;
+  }
+}
+.counter {
+  font-size: 0.8rem;
+  width: 34px;
+  padding: 3px;
+  text-align: center;
+  margin: 0 0.3rem;
+  border-radius: 1rem;
+  background-color: theme.$brand-100;
+  color: theme.$brand-500;
+}

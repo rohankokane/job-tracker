@@ -3,8 +3,8 @@
 .circleBtn {
   border-radius: 30px;
   padding: 0;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -12,5 +12,10 @@
   background: transparent;
   color: theme.$black-font;
   border: 1px solid theme.$gray-100;
+  border: none;
   cursor: pointer;
+  margin: 0 0.1rem;
+  &:hover {
+    background-color: theme.$gray-100;
+  }
 }
