@@ -65,12 +65,12 @@ label.required:after {
 input[type='text'] {
   border: none;
   background-color: theme.$gray-100;
-  padding: 0.5rem 0.6rem;
+  padding: 0.7rem 0.6rem;
   margin: 0.4rem 0;
   border-radius: 5px;
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px theme.$brand-200;
+    box-shadow: 0 0 0 2px theme.$brand-400;
   }
   &:invalid {
     box-shadow: 0 0 0 3px theme.$invalid-red;

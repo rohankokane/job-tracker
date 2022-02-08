@@ -37,7 +37,7 @@ function JobCard({ id, index, jobData }: CardProps) {
           ref={provided.innerRef}
         >
           <div className={styles.cardContent}>
-            {jobData.company} - {jobData.title}
+            {jobData.company} - {jobData.jobTitle}
             <CircleButton
               className={styles.deleteBtn}
               aria-label='delete'

@@ -1,66 +1,119 @@
+import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
+import * as Yup from 'yup'
+import { useEffect, useRef } from 'react'
+
+const formDataSchema = Yup.object().shape({
+  jobTitle: Yup.string().required('Required'),
+  company: Yup.string().required('Required'),
+  location: Yup.string(),
+  link: Yup.string(),
+  description: Yup.string(),
+  salary: Yup.string(),
+  status: Yup.string(),
+  logoUrl: Yup.string(),
+})
+const initialFormState = {
+  id: '',
+  jobTitle: '',
+  company: '',
+  lastUpdated: '',
+  deadline: '',
+  location: '',
+  link: '',
+  description: '',
+  salary: '',
+  status: '',
+  logoUrl: '',
+}
+
+type FormDataType = Yup.InferType<typeof formDataSchema>
 
 function CreateJobForm() {
   const dispatch = useDispatch()
-  // const [formState, inputHandler, setFormData] = useForm(
-  //   {
-  //     email: {
-  //       value: '',
-  //       isValid: false,
-  //     },
-  //     username: {
-  //       value: '',
-  //       isValid: false,
-  //     },
-  //     fullname: {
-  //       value: '',
-  //       isValid: false,
-  //     },
-  //     password: {
-  //       value: '',
-  //       isValid: false,
-  //     },
-  //     bio: {
-  //       value: '',
-  //       isValid: false,
-  //     },
-  //   },
-  //   false
-  // )
-  const onSubmit = () => {
-    console.log('form submitted create job')
-    // dispatch form data to add with status
+  const {
+    values,
+    handleSubmit,
+    submitCount,
+    getFieldProps,
+    setValues,
+    touched,
+    errors,
+    setFieldValue,
+  } = useFormik({
+    initialValues: initialFormState,
+    validationSchema: formDataSchema,
+    onSubmit(values) {
+      console.log(values)
+      // dispatch ADD
+    },
+  })
+  const isDebounced = useRef(true)
+
+  useEffect(() => {
+    //debounce
+    const timeout = 300
+    if (values.company && isDebounced.current) {
+      isDebounced.current = false
+      return
+    }
+
+    const timer = setTimeout(() => {
+      // async call
+      //   fetch(
+      //     'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' + name
+      // )
+      // .then(function(response) {
+      //     return response.json();
+      // })
+    }, timeout)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [values.company])
+
+  const onSelectCompany = () => {
+    // setValues({
+    //   ...values,
+    //   company: `@${values.email.split("@")[0]}`,
+    //   companyData,
+    //   companyImgUrl
+    // });
   }
+
   return (
     <div>
-      <form className={styles.newJobForm} onSubmit={onSubmit}>
+      <form className={styles.newJobForm} onSubmit={handleSubmit}>
         <div>
-          <label className={'required ' + styles.inputLabel}>Title</label>
+          <label htmlFor='jobTitle' className={'required ' + styles.inputLabel}>
+            Title
+          </label>
           <input
             type='text'
-            defaultValue='software developer'
-            className='w-100'
-            required
+            id='jobTitle'
+            className={'w-100' + ''}
+            placeholder='e.g. Web Developer '
+            {...getFieldProps('jobTitle')}
           />
         </div>
         <div>
-          <label className={'required ' + styles.inputLabel}>Company</label>
-          <input type='text' defaultValue='' className='w-100' required />
+          <label htmlFor='company' className={'required ' + styles.inputLabel}>
+            Company
+          </label>
+          <input
+            type='text'
+            id='company'
+            placeholder='e.g. Razorpay'
+            className={'w-100' + ''}
+            required
+            {...getFieldProps('')}
+          />
         </div>
       </form>
     </div>
   )
-}
-{
-  /* <FormInput
-      id='fullname'
-      type='text'
-      onChange={inputHandler}
-      placeholder='Full name'
-      validators={[VALIDATOR_REQUIRE()]}
-      errorMessage='Please enter your full name.'
-/> */
 }
 
 export default CreateJobForm

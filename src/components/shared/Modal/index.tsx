@@ -103,7 +103,7 @@ function ModalOpenButton({ children }: { children: React.ReactElement }) {
 // interface ModalContentsBaseProps {
 //   children: React.ReactNode
 // }
-interface ModalContentsProps extends React.HTMLProps<HTMLButtonElement> {
+interface ModalContentsProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode
 }
 function ModalContentsBase({ children, ...props }: ModalContentsProps) {

@@ -1,6 +1,6 @@
 export type JobType = {
   id: string
-  title: string
+  jobTitle: string
   company: string
   lastUpdated: number
   deadline: number
@@ -9,7 +9,7 @@ export type JobType = {
   description: string
   salary: string
   status: string
-  imgUrl: string
+  logoUrl: string
 }
 
 export type StateType = {

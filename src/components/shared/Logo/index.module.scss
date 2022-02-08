@@ -1,0 +1,27 @@
+.logo {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: rgb(25 4 69 / 10%) 0px 4px 10px, rgb(25 4 69 / 20%) 0px 0px 2px;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  background-color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  &.text {
+    line-height: 0;
+    text-transform: uppercase;
+    position: relative;
+    text-align: left;
+    letter-spacing: 0px;
+    margin: 0px;
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
+  }
+}
