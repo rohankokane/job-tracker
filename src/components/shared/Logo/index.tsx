@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 
-function Logo({ url, text }: { url: string; text: string }) {
-  if (url.length) {
+function Logo({ url, text }: { url?: string; text: string }) {
+  if (url) {
     return (
       <span
         className={styles.logo}

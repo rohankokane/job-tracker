@@ -1,0 +1,42 @@
+@use 'theme';
+
+.boxContainer {
+  width: 100%;
+  position: relative;
+  ul {
+    position: absolute;
+    top: 3.3rem;
+    left: 0;
+    right: 0;
+    box-shadow: theme.$drop-shadow;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: solid 1px theme.$gray-500;
+    background-color: white;
+    border-radius: 5px;
+    max-height: 150px;
+    li {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0.35rem 0.6rem;
+      border-bottom: 1px solid theme.$gray-500;
+      &:hover {
+        background-color: theme.$gray-200;
+      }
+      .nameContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .companyName {
+          margin-left: 0.5rem;
+        }
+      }
+      .domain {
+        color: theme.$gray-900;
+      }
+    }
+  }
+}

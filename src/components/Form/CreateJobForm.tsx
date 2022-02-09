@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import { useEffect, useRef } from 'react'
+import SearchBox from 'components/shared/SearchBox'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -32,6 +32,7 @@ type FormDataType = Yup.InferType<typeof formDataSchema>
 
 function CreateJobForm() {
   const dispatch = useDispatch()
+
   const {
     values,
     handleSubmit,
@@ -49,30 +50,29 @@ function CreateJobForm() {
       // dispatch ADD
     },
   })
-  const isDebounced = useRef(true)
 
-  useEffect(() => {
-    //debounce
-    const timeout = 300
-    if (values.company && isDebounced.current) {
-      isDebounced.current = false
-      return
-    }
+  // useEffect(() => {
+  //   //debounce
+  //   const timeout = 300
+  //   if (values.company && isDebounced.current) {
+  //     isDebounced.current = false
+  //     return
+  //   }
 
-    const timer = setTimeout(() => {
-      // async call
-      //   fetch(
-      //     'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' + name
-      // )
-      // .then(function(response) {
-      //     return response.json();
-      // })
-    }, timeout)
+  // const timer = setTimeout(() => {
+  //   // async call
+  //   //   fetch(
+  //   //     'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' + name
+  //   // )
+  //   // .then(function(response) {
+  //   //     return response.json();
+  //   // })
+  // }, timeout)
 
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [values.company])
+  //   return () => {
+  //     clearTimeout(timer)
+  //   }
+  // }, [values.company])
 
   const onSelectCompany = () => {
     // setValues({
@@ -81,6 +81,9 @@ function CreateJobForm() {
     //   companyData,
     //   companyImgUrl
     // });
+  }
+  const handleSearchBoxChange = (value: string) => {
+    setValues({ ...values, company: value })
   }
 
   return (
@@ -102,13 +105,13 @@ function CreateJobForm() {
           <label htmlFor='company' className={'required ' + styles.inputLabel}>
             Company
           </label>
-          <input
+          <SearchBox
             type='text'
             id='company'
-            placeholder='e.g. Razorpay'
             className={'w-100' + ''}
-            required
-            {...getFieldProps('')}
+            placeholder='e.g. Razorpay'
+            handleChange={handleSearchBoxChange}
+            {...getFieldProps('company')}
           />
         </div>
       </form>

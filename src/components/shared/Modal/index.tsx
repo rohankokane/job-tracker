@@ -74,7 +74,7 @@ function ModalDismissButton({ children }: { children: React.ReactElement }) {
       console.log('dismiss modal')
       setIsOpen(false)
     }, child.props.onClick),
-    ariaLabel: 'close',
+    'aria-label': 'close',
   })
 }
 
