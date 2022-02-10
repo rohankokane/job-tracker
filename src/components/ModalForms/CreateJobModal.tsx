@@ -11,7 +11,7 @@ function CreateJobModal({ children }: { children: React.ReactElement }) {
     <Modal>
       <ModalOpenButton>{children}</ModalOpenButton>
       <ModalContents style={{ maxWidth: '520px' }} aria-label='Add job form'>
-        <ModalHeader title='Add new job' />
+        <ModalHeader title='Add job' />
         <CreateJobForm />
       </ModalContents>
     </Modal>

@@ -12,6 +12,7 @@
     "@types/node": "^16.11.21",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "downshift": "^6.1.7",
     "formik": "^2.2.9",
     "lodash.debounce": "^4.0.8",
     "react": "^17.0.2",

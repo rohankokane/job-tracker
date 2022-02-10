@@ -63,14 +63,16 @@ label.required:after {
   color: red;
 }
 input[type='text'] {
-  border: none;
   background-color: theme.$gray-100;
   padding: 0.7rem 0.6rem;
   margin: 0.4rem 0;
+  border: none;
+  border: 1px solid theme.$gray-500;
   border-radius: 5px;
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px theme.$brand-400;
+    border-color: theme.$brand-400;
+    box-shadow: 0 0 0 1px theme.$brand-400;
   }
   &:invalid {
     box-shadow: 0 0 0 3px theme.$invalid-red;

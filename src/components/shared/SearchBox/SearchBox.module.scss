@@ -5,16 +5,19 @@
   position: relative;
   ul {
     position: absolute;
-    top: 3.3rem;
+    top: 4.4rem;
     left: 0;
     right: 0;
     box-shadow: theme.$drop-shadow;
     overflow-y: auto;
     overflow-x: hidden;
-    border: solid 1px theme.$gray-500;
+    // border: solid 1px theme.$gray-500;
     background-color: white;
     border-radius: 5px;
     max-height: 150px;
+    &.focused {
+      display: block;
+    }
     li {
       display: flex;
       flex-direction: row;
@@ -23,6 +26,9 @@
       width: 100%;
       padding: 0.35rem 0.6rem;
       border-bottom: 1px solid theme.$gray-500;
+      &:last-child {
+        border-bottom: none;
+      }
       &:hover {
         background-color: theme.$gray-200;
       }
@@ -37,6 +43,17 @@
       .domain {
         color: theme.$gray-900;
       }
+    }
+  }
+  .searchBox {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    span {
+      position: absolute;
+      right: 12px;
     }
   }
 }

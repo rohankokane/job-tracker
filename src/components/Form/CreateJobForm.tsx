@@ -2,7 +2,9 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import SearchBox from 'components/shared/SearchBox'
+import SearchBox, { CompanyData } from 'components/shared/SearchBox'
+import { useState } from 'react'
+import DropdownCombobox from 'components/shared/SearchBox/DropdownMenu'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -32,6 +34,7 @@ type FormDataType = Yup.InferType<typeof formDataSchema>
 
 function CreateJobForm() {
   const dispatch = useDispatch()
+  const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
 
   const {
     values,
@@ -46,44 +49,21 @@ function CreateJobForm() {
     initialValues: initialFormState,
     validationSchema: formDataSchema,
     onSubmit(values) {
-      console.log(values)
+      console.log('SUBMITTED')
+      // console.log(values)
       // dispatch ADD
     },
   })
 
-  // useEffect(() => {
-  //   //debounce
-  //   const timeout = 300
-  //   if (values.company && isDebounced.current) {
-  //     isDebounced.current = false
-  //     return
-  //   }
+  // const handleSearchBoxChange = (value: string) => {
+  //   setValues({ ...values, company: value })
+  // }
 
-  // const timer = setTimeout(() => {
-  //   // async call
-  //   //   fetch(
-  //   //     'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' + name
-  //   // )
-  //   // .then(function(response) {
-  //   //     return response.json();
-  //   // })
-  // }, timeout)
+  const handleSelectedCompanyChange = (changes: any) => {
+    console.log({ changes })
 
-  //   return () => {
-  //     clearTimeout(timer)
-  //   }
-  // }, [values.company])
-
-  const onSelectCompany = () => {
-    // setValues({
-    //   ...values,
-    //   company: `@${values.email.split("@")[0]}`,
-    //   companyData,
-    //   companyImgUrl
-    // });
-  }
-  const handleSearchBoxChange = (value: string) => {
-    setValues({ ...values, company: value })
+    setSelectedCompany({ ...changes.selectedItem })
+    // setValues({ ...values, company: value })
   }
 
   return (
@@ -102,17 +82,17 @@ function CreateJobForm() {
           />
         </div>
         <div>
-          <label htmlFor='company' className={'required ' + styles.inputLabel}>
-            Company
-          </label>
-          <SearchBox
-            type='text'
-            id='company'
-            className={'w-100' + ''}
-            placeholder='e.g. Razorpay'
-            handleChange={handleSearchBoxChange}
-            {...getFieldProps('company')}
+          <DropdownCombobox
+            selectedItem={selectedCompany?.name}
+            selectedCompany={selectedCompany}
+            handleSelectedItemChange={handleSelectedCompanyChange}
           />
+        </div>
+        <div>
+          <label htmlFor='status' className={'required ' + styles.inputLabel}>
+            Status
+          </label>
+          <input className='w-100' type='text' id='status' />
         </div>
       </form>
     </div>

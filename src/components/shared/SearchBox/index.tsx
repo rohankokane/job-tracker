@@ -1,26 +1,56 @@
 import debounce from 'lodash.debounce'
-import { SetStateAction, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Logo from '../Logo'
 import styles from './SearchBox.module.scss'
 
-interface Props extends React.HTMLProps<HTMLInputElement> {
-  handleChange(value: string): void
-}
-type CompanyList = {
+export type CompanyData = {
   domain: string
   logo?: string
   name: string
 }
+interface Props extends React.HTMLProps<HTMLInputElement> {
+  handleChange(value: string): void
+  setCompanyData: React.Dispatch<React.SetStateAction<CompanyData | undefined>>
+  companyData: CompanyData | undefined
+}
 
 function SearchBox(props: Props) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [companyList, setCompanyList] = useState([] as CompanyList[])
+  const [searchBoxFocus, setSearchBoxFocus] = useState(false)
+  const [companyList, setCompanyList] = useState([] as CompanyData[])
+  const searchBoxRef = useRef<HTMLInputElement>(null)
 
-  const { onChange, handleChange, value, ...restProps } = props
-  console.log(value)
+  const {
+    value,
+    onChange,
+    companyData,
+    setCompanyData,
+    handleChange,
+    ...restProps
+  } = props
+
   useEffect(() => {
     handleChange(searchTerm)
   }, [searchTerm])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (searchBoxFocus) {
+        window.addEventListener('click', closeList)
+      } else {
+        window.removeEventListener('click', closeList)
+      }
+    }, 0)
+    console.log({ searchBoxFocus })
+    return () => {
+      window.removeEventListener('click', closeList)
+    }
+  }, [searchBoxFocus])
+
+  const closeList = () => {
+    console.log('close')
+    setSearchBoxFocus(false)
+  }
 
   const handleSearch = (query: string) => {
     fetchCompanyData(query)
@@ -32,21 +62,46 @@ function SearchBox(props: Props) {
   const handleInputStateChange: React.ChangeEventHandler<HTMLInputElement> = (
     e
   ) => {
+    if (companyData !== undefined) {
+      setCompanyData(undefined)
+    }
     setSearchTerm(e.target.value)
     debouncedSearch(e.target.value)
   }
 
   const handleCompanySelect: React.MouseEventHandler<HTMLElement> = (e) => {
+    e.stopPropagation()
+    if (searchBoxRef.current == null) return
+
+    searchBoxRef.current.focus()
+
     const { index } = e.currentTarget.dataset
     if (!index) return
 
     const indexNum = Number(index)
-    // console.log(companyList[Number(index)])
     setSearchTerm(companyList[indexNum].name)
+    setCompanyData({ ...companyList[indexNum] })
+    setCompanyList([])
+  }
+
+  const handleKeySelect: React.KeyboardEventHandler<HTMLElement> = (e) => {
+    // e.stopPropagation()
+
+    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') {
+      const { index } = e.currentTarget.dataset
+      if (!index) return
+
+      const indexNum = Number(index)
+      setSearchTerm(companyList[indexNum].name)
+      setCompanyData({ ...companyList[indexNum] })
+      setCompanyList([])
+
+      // if (searchBoxRef.current == null) return
+      // searchBoxRef.current.focus()
+    }
   }
 
   const fetchCompanyData = async (companyName: string) => {
-    // async call
     fetch(
       'https://autocomplete.clearbit.com/v1/companies/suggest?query=:' +
         companyName
@@ -67,18 +122,30 @@ function SearchBox(props: Props) {
           value={searchTerm}
           onChange={handleInputStateChange}
           autoComplete='off'
+          onFocus={() => {
+            setSearchBoxFocus(true)
+          }}
+          ref={searchBoxRef}
         />
-        {/* <Logo value={} /> */}
+        {companyData !== undefined && (
+          <Logo text={companyData.name} url={companyData?.logo} />
+        )}
       </div>
       {companyList.length !== 0 && (
-        <ul className={styles.companyList}>
+        <ul
+          className={
+            styles.companyList + ' ' + (searchBoxFocus ? styles.focused : '')
+          }
+        >
           {companyList.length === 0 ? (
             <li>Not found</li>
           ) : (
             companyList.map((obj, index) => {
               return (
                 <li
+                  tabIndex={0}
                   onClick={handleCompanySelect}
+                  onKeyDown={handleKeySelect}
                   data-index={+index}
                   key={+index}
                 >

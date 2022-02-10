@@ -8,8 +8,7 @@ export default function reducer(state: StateType, action: Action) {
       // const data = action.payload
 
       return {
-        ...state,
-        // ...action.payload,
+        ...action.payload,
       }
     }
 
