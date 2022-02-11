@@ -3,8 +3,6 @@ import { FiChevronDown } from 'react-icons/fi'
 import { HEADING } from 'utils/status'
 import styles from './Dropdown.module.scss'
 
-// type OptionValue = number | string
-
 type Option = {
   value: string
   label: string
@@ -12,20 +10,19 @@ type Option = {
 }
 
 type SelectProps = {
-  // options: Option<Type>[];
   items: Option[]
   initialSelectedItem?: Option
   label: string
   className?: string
+  handleSelectedItem: (arg: string) => void
 }
-
-// function Select<Type extends OptionValue>({ options }: SelectProps<Type>) {
 
 function DropdownSelect({
   items,
   initialSelectedItem,
   label,
   className,
+  handleSelectedItem,
 }: SelectProps) {
   const {
     isOpen,
@@ -39,6 +36,12 @@ function DropdownSelect({
     items,
     itemToString: (item) => (item ? item.label : ''),
     initialSelectedItem,
+    onSelectedItemChange: ({ selectedItem }) => {
+      // console.log(selectedItem)
+      if (selectedItem) {
+        handleSelectedItem(selectedItem.value)
+      }
+    },
   })
 
   return (
@@ -52,7 +55,6 @@ function DropdownSelect({
         {selectedItem && (
           <span className={styles.listIcon}>{HEADING[selectedItem.value]}</span>
         )}
-
         {selectedItem?.label}
         <FiChevronDown className={styles.downArrow} />
       </button>

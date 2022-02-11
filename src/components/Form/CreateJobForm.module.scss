@@ -6,4 +6,20 @@
   }
   .dropdownSelect {
   }
+  .formFooter {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 0.5rem 0 0;
+  }
+  .inputLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .errorMsg {
+      color: rgb(218, 0, 0);
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+  }
 }

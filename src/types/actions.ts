@@ -4,7 +4,7 @@ import { DraggableLocation } from 'react-beautiful-dnd'
 export type Action =
   | {
       type: 'ADD'
-      payload: StateType
+      payload: JobType
     }
   | {
       type: 'DRAG_COMPLETE'

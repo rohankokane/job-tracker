@@ -5,10 +5,10 @@
   position: relative;
   ul {
     position: absolute;
-    top: 4.4rem;
+    top: 2.75rem;
     left: 0;
     right: 0;
-    box-shadow: theme.$drop-shadow;
+    box-shadow: theme.$dropdown-shadow;
     overflow-y: auto;
     overflow-x: hidden;
     // border: solid 1px theme.$gray-500;

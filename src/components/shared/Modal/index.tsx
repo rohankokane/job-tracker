@@ -10,6 +10,16 @@ type ModalContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 
 const ModalContext = React.createContext(null as unknown as ModalContextType)
 
+export function useModalDismiss() {
+  const modalContext = React.useContext(ModalContext)
+  if (!modalContext) {
+    throw Error(
+      'to use modal dismiss hook it has to be used within a Modal component'
+    )
+  }
+  return modalContext[1]
+}
+
 function Modal({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
@@ -43,7 +53,7 @@ function ModalHeader({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '0.5rem',
+        marginBottom: '1rem',
       }}
     >
       <h3 style={{ textAlign: 'left', fontSize: '1.5em' }}>{title}</h3>

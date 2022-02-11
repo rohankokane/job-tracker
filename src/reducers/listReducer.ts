@@ -5,10 +5,12 @@ export default function reducer(state: StateType, action: Action) {
   console.log({ state, action })
   switch (action.type) {
     case 'ADD': {
-      // const data = action.payload
+      const dataToBeAdded = action.payload
+      const { status } = dataToBeAdded
+      state[status].unshift(dataToBeAdded)
 
       return {
-        ...action.payload,
+        ...state,
       }
     }
 

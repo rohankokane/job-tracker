@@ -1,21 +1,21 @@
 import { useCombobox } from 'downshift'
 import debounce from 'lodash.debounce'
 import { useMemo, useState } from 'react'
-import { CompanyData } from '.'
+import { CompanyData } from 'types'
 import Logo from '../Logo'
 import styles from './SearchBox.module.scss'
 
 type Props = {
-  selectedCompany?: CompanyData
-  selectedItem: any
-  handleSelectedItemChange: (changes: any) => void
+  selectedItem: CompanyData | undefined
+  handleSelectedItemChange: (arg: CompanyData | undefined) => void
+  handleInputChange: (arg: string) => void
   placeholder?: string
 }
 
 function DropdownCombobox({
-  selectedCompany,
   selectedItem,
   handleSelectedItemChange,
+  handleInputChange,
   placeholder,
 }: Props) {
   const [companyList, setCompanyList] = useState([] as CompanyData[])
@@ -30,8 +30,6 @@ function DropdownCombobox({
   const {
     isOpen,
     inputValue,
-    getToggleButtonProps,
-    getLabelProps,
     getMenuProps,
     getInputProps,
     getComboboxProps,
@@ -39,11 +37,20 @@ function DropdownCombobox({
     getItemProps,
   } = useCombobox({
     items: companyList,
-    itemToString: (item) => item.name,
-    selectedItem,
-    onSelectedItemChange: handleSelectedItemChange,
+    itemToString: (item) => (item ? item.name : ''),
+    selectedItem: selectedItem,
+    onSelectedItemChange: ({ selectedItem }) => {
+      if (selectedItem) {
+        handleSelectedItemChange(selectedItem)
+      }
+    },
     onInputValueChange: ({ inputValue }) => {
-      //async fetch
+      if (inputValue === undefined) return
+
+      handleInputChange(inputValue)
+      if (selectedItem) {
+        handleSelectedItemChange(undefined)
+      }
       if (inputValue) {
         debouncedSearch(inputValue)
       }
@@ -65,26 +72,23 @@ function DropdownCombobox({
 
   return (
     <div className={styles.boxContainer}>
-      <label className='required ' {...getLabelProps({ htmlFor: 'company' })}>
-        Company:
-      </label>
       <div className={styles.searchBox} {...getComboboxProps()}>
         <input
           placeholder={placeholder}
           className='w-100 '
           {...getInputProps({ type: 'text', id: 'company' })}
         />
-        {selectedCompany !== undefined && (
+        {selectedItem !== undefined && (
           <Logo
             className={styles.companyLogo}
-            text={selectedCompany.name}
-            url={selectedCompany.logo}
+            text={selectedItem.name}
+            url={selectedItem.logo}
           />
         )}
       </div>
       <ul {...getMenuProps()}>
         {isOpen &&
-          companyList.map(({ name: item, logo, domain }, index) => (
+          companyList.map((item, index) => (
             <li
               style={
                 highlightedIndex === index ? { backgroundColor: '#eceef8' } : {}
@@ -93,17 +97,15 @@ function DropdownCombobox({
               {...getItemProps({ item, index })}
             >
               <span className={styles.nameContainer}>
-                <Logo url={logo} text={item} />
-                <span className={styles.companyName}>{item}</span>
+                <Logo url={item?.logo} text={item.name} />
+                <span className={styles.companyName}>{item.name}</span>
               </span>
-              <span className={styles.domain}>{domain}</span>
+              <span className={styles.domain}>{item.domain}</span>
             </li>
           ))}
       </ul>
     </div>
   )
 }
-// style={
-//   highlightedIndex === index ? { backgroundColor: '#bde4ff' } : {}
-// }
+
 export default DropdownCombobox

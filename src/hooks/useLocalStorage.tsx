@@ -40,7 +40,7 @@ function useLocalStorageState(
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
   }, [state])
 
-  console.log('LOCAL hook', { state, dispatch })
+  // console.log('LOCAL hook', { state, dispatch })
   return [state, dispatch]
 }
 

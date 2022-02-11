@@ -2,11 +2,13 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import { CompanyData } from 'components/shared/SearchBox'
+import { CompanyData } from 'types'
 import { useState } from 'react'
 import DropdownCombobox from 'components/shared/SearchBox/SearchComboBox'
 import DropdownSelect from 'components/shared/DropdownSelect'
 import { statusList } from 'utils/status'
+import Button from 'components/shared/Button'
+import { useModalDismiss } from 'components/shared/Modal'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -16,6 +18,7 @@ const formDataSchema = Yup.object().shape({
   description: Yup.string(),
   salary: Yup.string(),
   status: Yup.string(),
+  // companyData: Yup.object(),
 })
 const initialFormState = {
   // id: '',
@@ -27,14 +30,14 @@ const initialFormState = {
   link: '',
   description: '',
   salary: '',
-  status: '',
-  logoUrl: '',
+  status: 'saved',
 }
 
 type FormDataType = Yup.InferType<typeof formDataSchema>
 
 function CreateJobForm() {
   const dispatch = useDispatch()
+  const setIsOpenModal = useModalDismiss()
   const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
 
   const {
@@ -43,15 +46,28 @@ function CreateJobForm() {
     submitCount,
     getFieldProps,
     setValues,
-    touched,
     errors,
     setFieldValue,
   } = useFormik({
     initialValues: initialFormState,
     validationSchema: formDataSchema,
-    onSubmit(values) {
+    onSubmit: (values) => {
       console.log('SUBMITTED')
-      // console.log(values)
+      const defaultCompanyData = {
+        name: values.company,
+        domain: '',
+        logo: '',
+      }
+      console.log(values)
+      const companyData = selectedCompany ?? defaultCompanyData
+
+      const data = {
+        ...values,
+        logoUrl: selectedCompany?.logo || '',
+        companyData,
+      }
+      dispatch({ type: 'ADD', payload: data })
+      setIsOpenModal(false)
       // dispatch ADD
     },
   })
@@ -60,20 +76,43 @@ function CreateJobForm() {
   //   setValues({ ...values, company: value })
   // }
 
-  const handleSelectedCompanyChange = (changes: any) => {
-    console.log({ changes })
-
-    setSelectedCompany({ ...changes.selectedItem })
-    // setValues({ ...values, company: value })
+  const handleSelectedCompanyChange = (
+    selectedItem: CompanyData | undefined
+  ) => {
+    if (selectedItem === undefined) {
+      setSelectedCompany(undefined)
+      setValues({ ...values, company: '' })
+    } else {
+      setSelectedCompany({ ...selectedItem })
+      setValues({ ...values, company: selectedItem.name })
+    }
   }
-  console.log({ values })
+
+  const handleStatusChange = (selectedStatus: string) => {
+    setValues({ ...values, status: selectedStatus })
+  }
+  const handleInputChange = (companyName: string) => {
+    setValues({ ...values, company: companyName })
+  }
+
+  // const formSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  //   e.preventDefault()
+  //   console.log('submitting....')
+  //   handleSubmit(e)
+  // }
+
   return (
     <div>
       <form className={styles.newJobForm} onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='jobTitle' className={'required ' + styles.inputLabel}>
-            Title
-          </label>
+          <span className={styles.inputLabel}>
+            <label htmlFor='jobTitle' className={'required '}>
+              Title
+            </label>
+            {errors['jobTitle'] && submitCount !== 0 && (
+              <span className={styles.errorMsg}>{errors['jobTitle']}</span>
+            )}
+          </span>
           <input
             type='text'
             id='jobTitle'
@@ -82,14 +121,23 @@ function CreateJobForm() {
             {...getFieldProps('jobTitle')}
           />
         </div>
-        <>
+        <div>
+          <span className={styles.inputLabel}>
+            <label htmlFor='company' className={'required '}>
+              Company
+            </label>
+            {errors['company'] && submitCount !== 0 && (
+              <span className={styles.errorMsg}>{errors['company']}</span>
+            )}
+          </span>
           <DropdownCombobox
             placeholder='Search company name'
-            selectedItem={selectedCompany?.name}
-            selectedCompany={selectedCompany}
+            selectedItem={selectedCompany}
             handleSelectedItemChange={handleSelectedCompanyChange}
+            handleInputChange={handleInputChange}
+            {...getFieldProps('company')}
           />
-        </>
+        </div>
         <div>
           <label htmlFor='location'>Location</label>
           <input
@@ -105,6 +153,7 @@ function CreateJobForm() {
             items={statusList}
             initialSelectedItem={statusList[0]}
             className={styles.dropdownSelect}
+            handleSelectedItem={handleStatusChange}
           />
         </>
         <div>
@@ -113,6 +162,7 @@ function CreateJobForm() {
             type='text'
             id='link'
             className={'w-100' + ''}
+            autoComplete='off'
             {...getFieldProps('link')}
           />
         </div>
@@ -133,6 +183,11 @@ function CreateJobForm() {
             className={'w-100 '}
             {...getFieldProps('description')}
           />
+        </div>
+        <div className={styles.formFooter}>
+          <Button variant='primary' type='submit'>
+            Add job
+          </Button>
         </div>
       </form>
     </div>

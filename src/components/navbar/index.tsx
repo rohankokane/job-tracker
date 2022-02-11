@@ -10,7 +10,7 @@ function NavBar() {
         <li>Job Board</li>
         <div>
           <CreateJobModal>
-            <Button>Add</Button>
+            <Button variant='primary'>Add</Button>
           </CreateJobModal>
         </div>
       </ul>

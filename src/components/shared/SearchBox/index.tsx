@@ -1,13 +1,9 @@
 import debounce from 'lodash.debounce'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { CompanyData } from 'types'
 import Logo from '../Logo'
 import styles from './SearchBox.module.scss'
 
-export type CompanyData = {
-  domain: string
-  logo?: string
-  name: string
-}
 interface Props extends React.HTMLProps<HTMLInputElement> {
   handleChange(value: string): void
   setCompanyData: React.Dispatch<React.SetStateAction<CompanyData | undefined>>

@@ -1,14 +1,16 @@
 function Button({
-  type = 'primary',
+  type = 'button',
+  variant = 'primary',
   children,
   ...props
 }: {
-  type?: string
+  type?: 'button' | 'submit' | 'reset'
+  variant?: 'primary' | 'secondary'
   children: React.ReactNode
   props?: React.HTMLProps<HTMLButtonElement>[]
 }) {
   return (
-    <button type='button' className={type + ' btn'} {...props}>
+    <button type={type} className={variant + ' btn'} {...props}>
       {children}
     </button>
   )
