@@ -1,19 +1,9 @@
 import List from 'components/List'
 import Counter from 'components/shared/Counter'
 import { StateType } from 'types'
+import { HEADING } from 'utils/status'
 import JobList from '../JobList'
 import styles from './JobListTable.module.scss'
-
-type headingType = {
-  [k: string]: string
-}
-const HEADING: headingType = {
-  saved: '🗃️',
-  applied: '⚡',
-  interview: '🚀',
-  offer: '🏆',
-  rejected: '💣',
-}
 
 const JobListTable = ({ state }: { state: StateType }) => {
   const getUnavailableMessage = () => {

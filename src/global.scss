@@ -62,16 +62,17 @@ label.required:after {
   content: '*';
   color: red;
 }
-input[type='text'] {
+input[type='text'],
+textarea {
   background-color: theme.$gray-100;
   padding: 0.7rem 0.6rem;
   margin: 0.4rem 0;
   border: none;
-  border: 1px solid theme.$gray-500;
+  // border: 1px solid theme.$gray-500;
   border-radius: 5px;
   &:focus {
     outline: none;
-    border-color: theme.$brand-400;
+    // border-color: theme.$brand-400;
     box-shadow: 0 0 0 1px theme.$brand-400;
   }
   &:invalid {
@@ -81,6 +82,10 @@ input[type='text'] {
     display: block;
     width: 100%;
   }
+}
+textarea {
+  max-width: 100%;
+  resize: vertical;
 }
 .search-box {
   position: relative;

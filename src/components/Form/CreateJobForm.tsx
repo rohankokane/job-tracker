@@ -2,9 +2,11 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import SearchBox, { CompanyData } from 'components/shared/SearchBox'
+import { CompanyData } from 'components/shared/SearchBox'
 import { useState } from 'react'
-import DropdownCombobox from 'components/shared/SearchBox/DropdownMenu'
+import DropdownCombobox from 'components/shared/SearchBox/SearchComboBox'
+import DropdownSelect from 'components/shared/DropdownSelect'
+import { statusList } from 'utils/status'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -14,14 +16,13 @@ const formDataSchema = Yup.object().shape({
   description: Yup.string(),
   salary: Yup.string(),
   status: Yup.string(),
-  logoUrl: Yup.string(),
 })
 const initialFormState = {
-  id: '',
+  // id: '',
   jobTitle: '',
   company: '',
-  lastUpdated: '',
-  deadline: '',
+  // lastUpdated: '',
+  // deadline: '',
   location: '',
   link: '',
   description: '',
@@ -65,7 +66,7 @@ function CreateJobForm() {
     setSelectedCompany({ ...changes.selectedItem })
     // setValues({ ...values, company: value })
   }
-
+  console.log({ values })
   return (
     <div>
       <form className={styles.newJobForm} onSubmit={handleSubmit}>
@@ -81,18 +82,57 @@ function CreateJobForm() {
             {...getFieldProps('jobTitle')}
           />
         </div>
-        <div>
+        <>
           <DropdownCombobox
+            placeholder='Search company name'
             selectedItem={selectedCompany?.name}
             selectedCompany={selectedCompany}
             handleSelectedItemChange={handleSelectedCompanyChange}
           />
+        </>
+        <div>
+          <label htmlFor='location'>Location</label>
+          <input
+            type='text'
+            id='location'
+            className={'w-100' + ''}
+            {...getFieldProps('location')}
+          />
+        </div>
+        <>
+          <DropdownSelect
+            label={'Status'}
+            items={statusList}
+            initialSelectedItem={statusList[0]}
+            className={styles.dropdownSelect}
+          />
+        </>
+        <div>
+          <label htmlFor='link'>Link</label>
+          <input
+            type='text'
+            id='link'
+            className={'w-100' + ''}
+            {...getFieldProps('link')}
+          />
         </div>
         <div>
-          <label htmlFor='status' className={'required ' + styles.inputLabel}>
-            Status
-          </label>
-          <input className='w-100' type='text' id='status' />
+          <label htmlFor='salary'>Salary</label>
+          <input
+            type='text'
+            id='salary'
+            className={'w-100' + ''}
+            {...getFieldProps('salary')}
+          />
+        </div>
+        <div>
+          <label htmlFor='description'>Description</label>
+          <textarea
+            id='description'
+            rows={3}
+            className={'w-100 '}
+            {...getFieldProps('description')}
+          />
         </div>
       </form>
     </div>

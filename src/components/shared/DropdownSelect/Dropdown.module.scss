@@ -1,8 +1,31 @@
 @use 'theme';
 
-.boxContainer {
+.dropdownContainer {
   width: 100%;
   position: relative;
+  .dropdownSelect {
+    margin: 0.4rem 0;
+    padding: 0.7rem 0.6rem;
+    background-color: theme.$gray-100;
+    border: none;
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+    // border: 1px solid theme.$gray-500;
+    border-radius: 5px;
+    &:focus {
+      outline: none;
+      // border-color: theme.$brand-400;
+      box-shadow: 0 0 0 1px theme.$brand-400;
+    }
+    .downArrow {
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+    }
+  }
+
   ul {
     position: absolute;
     top: 4.4rem;
@@ -13,7 +36,6 @@
     overflow-x: hidden;
     // border: solid 1px theme.$gray-500;
     background-color: white;
-    z-index: 10;
     border-radius: 5px;
     max-height: 150px;
     &.focused {
@@ -22,21 +44,20 @@
     li {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       width: 100%;
       padding: 0.35rem 0.6rem;
       // border-bottom: 1px solid theme.$gray-500;
       min-height: 42px;
+
       &:last-child {
         border-bottom: none;
       }
       &:hover {
         background-color: theme.$brand-50;
       }
-      &:focus {
-        background-color: theme.$brand-50;
-      }
+
       .nameContainer {
         display: flex;
         flex-direction: row;
@@ -50,13 +71,8 @@
       }
     }
   }
-  .searchBox {
-    position: relative;
-    margin: 0;
-    span.companyLogo {
-      position: absolute;
-      right: 12px;
-      top: 3px;
-    }
-  }
+}
+.listIcon {
+  margin: 0 0.3rem;
+  font-size: 1rem;
 }

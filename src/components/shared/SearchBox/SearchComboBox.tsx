@@ -9,12 +9,14 @@ type Props = {
   selectedCompany?: CompanyData
   selectedItem: any
   handleSelectedItemChange: (changes: any) => void
+  placeholder?: string
 }
 
 function DropdownCombobox({
   selectedCompany,
   selectedItem,
   handleSelectedItemChange,
+  placeholder,
 }: Props) {
   const [companyList, setCompanyList] = useState([] as CompanyData[])
 
@@ -68,17 +70,28 @@ function DropdownCombobox({
       </label>
       <div className={styles.searchBox} {...getComboboxProps()}>
         <input
+          placeholder={placeholder}
           className='w-100 '
           {...getInputProps({ type: 'text', id: 'company' })}
         />
         {selectedCompany !== undefined && (
-          <Logo text={selectedCompany.name} url={selectedCompany.logo} />
+          <Logo
+            className={styles.companyLogo}
+            text={selectedCompany.name}
+            url={selectedCompany.logo}
+          />
         )}
       </div>
       <ul {...getMenuProps()}>
         {isOpen &&
           companyList.map(({ name: item, logo, domain }, index) => (
-            <li key={`${item}${index}`} {...getItemProps({ item, index })}>
+            <li
+              style={
+                highlightedIndex === index ? { backgroundColor: '#eceef8' } : {}
+              }
+              key={`${item}${index}`}
+              {...getItemProps({ item, index })}
+            >
               <span className={styles.nameContainer}>
                 <Logo url={logo} text={item} />
                 <span className={styles.companyName}>{item}</span>
