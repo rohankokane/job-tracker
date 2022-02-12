@@ -1,7 +1,15 @@
 import { JobType } from 'types'
 import JobCard from '../JobCard'
 
-const JobList = ({ list, keyTitle }: { list: JobType[]; keyTitle: string }) => {
+const JobList = ({
+  list,
+  keyTitle,
+  handleOpenModal,
+}: {
+  list: JobType[]
+  keyTitle: string
+  handleOpenModal: (index: number, status: string) => void
+}) => {
   return (
     <>
       {list.map((jobObj, index) => (
@@ -10,6 +18,7 @@ const JobList = ({ list, keyTitle }: { list: JobType[]; keyTitle: string }) => {
           id={`${keyTitle}-${index}`}
           index={index}
           jobData={jobObj}
+          onClick={handleOpenModal}
         />
       ))}
     </>

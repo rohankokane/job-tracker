@@ -6,18 +6,29 @@
   .cardContent {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-
     width: 100%;
-    height: 5rem;
+    height: 6rem;
     background-color: white;
     border-radius: 5px;
-    padding: 0.8rem;
+    padding: 0.8rem 0.6rem;
     box-shadow: theme.$card-shadow;
     transition: background-color 0.1s ease-in;
+    .cardCompany {
+      display: flex;
+      font-size: 0.9rem;
+      .companyName {
+        font-weight: 500;
+      }
+      .cardText {
+        margin-left: 0.5rem;
+      }
+    }
     .deleteBtn {
-      display: none;
+      // display: none;
+      visibility: hidden;
+
       cursor: pointer;
     }
     &:hover {
@@ -25,7 +36,8 @@
       // border: 1px solid theme.$gray-500;
       // border-color: theme.$gray-500;
       .deleteBtn {
-        display: inline-block;
+        visibility: visible;
+        // display: inline-block;
       }
     }
   }

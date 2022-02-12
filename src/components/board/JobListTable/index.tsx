@@ -1,11 +1,25 @@
 import List from 'components/List'
 import Counter from 'components/shared/Counter'
-import { StateType } from 'types'
+import {
+  ModalContents,
+  ModalHeader,
+  useModalToggle,
+} from 'components/shared/Modal'
+import { useState } from 'react'
+import { JobType, StateType } from 'types'
 import { HEADING } from 'utils/status'
+import JobInfo from '../JobInfo'
 import JobList from '../JobList'
 import styles from './JobListTable.module.scss'
 
 const JobListTable = ({ state }: { state: StateType }) => {
+  const setIsModalOpen = useModalToggle()
+  const [modalData, setModalData] = useState<JobType>()
+  const handleOpenModal = (index: number, status: string) => {
+    console.log({ index, status })
+    setModalData({ ...state[status][index] })
+    setIsModalOpen(true)
+  }
   const getUnavailableMessage = () => {
     return 'no jobs added'
   }
@@ -21,7 +35,12 @@ const JobListTable = ({ state }: { state: StateType }) => {
             </span>
             <List key={key + index} dropId={key}>
               {state[key].length ? (
-                <JobList list={state[key]} key={key} keyTitle={key} />
+                <JobList
+                  handleOpenModal={handleOpenModal}
+                  list={state[key]}
+                  key={key}
+                  keyTitle={key}
+                />
               ) : (
                 <span className='unavailable'>{getUnavailableMessage()}</span>
               )}
@@ -29,6 +48,12 @@ const JobListTable = ({ state }: { state: StateType }) => {
           </div>
         )
       })}
+      {modalData?.jobTitle && (
+        <ModalContents style={{ maxWidth: '520px' }} aria-label='job details'>
+          <ModalHeader title={modalData.jobTitle} />
+          <JobInfo data={modalData} />
+        </ModalContents>
+      )}
     </>
   )
 }

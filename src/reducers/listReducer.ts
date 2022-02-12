@@ -23,11 +23,12 @@ export default function reducer(state: StateType, action: Action) {
       // update status and pop from one & add to another
       const { source, destination } = action.payload
       const item = state[source.droppableId][source.index]
+      item.lastUpdated = Date.now()
+      item.status = destination.droppableId
       //remove
       state[source.droppableId].splice(source.index, 1)
       //add
       state[destination.droppableId].splice(destination.index, 0, item)
-
       return { ...state }
     }
     case 'DELETE': {

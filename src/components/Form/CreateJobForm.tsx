@@ -8,7 +8,7 @@ import DropdownCombobox from 'components/shared/SearchBox/SearchComboBox'
 import DropdownSelect from 'components/shared/DropdownSelect'
 import { statusList } from 'utils/status'
 import Button from 'components/shared/Button'
-import { useModalDismiss } from 'components/shared/Modal'
+import { useModalToggle } from 'components/shared/Modal'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -37,7 +37,7 @@ type FormDataType = Yup.InferType<typeof formDataSchema>
 
 function CreateJobForm() {
   const dispatch = useDispatch()
-  const setIsOpenModal = useModalDismiss()
+  const setIsOpenModal = useModalToggle()
   const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
 
   const {
@@ -65,6 +65,7 @@ function CreateJobForm() {
         ...values,
         logoUrl: selectedCompany?.logo || '',
         companyData,
+        notes: '',
       }
       dispatch({ type: 'ADD', payload: data })
       setIsOpenModal(false)

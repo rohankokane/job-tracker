@@ -10,7 +10,7 @@ type ModalContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 
 const ModalContext = React.createContext(null as unknown as ModalContextType)
 
-export function useModalDismiss() {
+export function useModalToggle() {
   const modalContext = React.useContext(ModalContext)
   if (!modalContext) {
     throw Error(
@@ -66,7 +66,7 @@ function ModalHeader({
       >
         {children}
         <ModalDismissButton>
-          <CircleButton>
+          <CircleButton size={8}>
             <VisuallyHidden>Close</VisuallyHidden>
             <FiX size={'20'} aria-hidden />
           </CircleButton>

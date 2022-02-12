@@ -4,17 +4,12 @@ import styles from './JobBoard.module.scss'
 import { useBoard } from 'hooks/useBoard'
 import { useDispatch } from 'hooks/useDispatch'
 import JobListTable from 'components/board/JobListTable'
-import { mockData } from 'reducers/mockData'
-import { useEffect } from 'react'
+import { Modal } from 'components/shared/Modal'
 
 function JobBoard() {
   const state = useBoard()
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   dispatch({ type: 'ADD', payload: mockData })
-  // }, [])
   const onDragEnd = (result: DropResult) => {
-    console.log({ result })
     const { destination, source } = result
     if (!destination) {
       return
@@ -35,7 +30,9 @@ function JobBoard() {
   return (
     <div className={styles.grid}>
       <DragDropContext onDragEnd={onDragEnd}>
-        <JobListTable state={state} />
+        <Modal>
+          <JobListTable state={state} />
+        </Modal>
       </DragDropContext>
     </div>
   )

@@ -11,6 +11,7 @@ export type JobType = {
   status: string
   logoUrl: string
   companyData: CompanyData
+  notes: string
 }
 
 export type StateType = {
