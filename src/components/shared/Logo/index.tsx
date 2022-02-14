@@ -4,16 +4,22 @@ function Logo({
   url,
   text,
   className,
+  size = 6,
 }: {
   url?: string
   text: string
   className?: string
+  size?: number
 }) {
   if (url) {
     return (
       <span
         className={styles.logo + ' ' + className}
-        style={{ backgroundImage: `url(${url})` }}
+        style={{
+          backgroundImage: `url(${url})`,
+          width: `${size * 4}px`,
+          height: `${size * 4}px`,
+        }}
       />
     )
   } else {

@@ -13,7 +13,15 @@ export type Action =
         destination: DraggableLocation
       }
     }
-  | { type: 'UPDATE' }
+  | { type: 'UPDATE'; payload: JobType }
+  | {
+      type: 'UPDATE_NOTES'
+      payload: {
+        status: string
+        id: string
+        notes: string
+      }
+    }
   | {
       type: 'DELETE'
       payload: {

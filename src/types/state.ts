@@ -1,5 +1,5 @@
 export type JobType = {
-  id?: string
+  id: string
   jobTitle: string
   company: string
   lastUpdated?: number
@@ -19,7 +19,7 @@ export type StateType = {
 }
 
 export type CompanyData = {
-  domain?: string
+  domain?: string | undefined
   logo?: string | undefined
   name: string
 }

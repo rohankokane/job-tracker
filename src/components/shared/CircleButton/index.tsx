@@ -2,7 +2,7 @@ import styles from './CircleButton.module.scss'
 
 interface CircleButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode
-  onClick?: () => void
+  onClick?: React.MouseEventHandler<HTMLElement>
   size?: number
 }
 

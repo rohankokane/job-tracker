@@ -41,22 +41,22 @@ function Modal({ children }: { children: React.ReactNode }) {
 }
 
 function ModalHeader({
+  modalButtons,
   children,
-  title,
 }: {
+  modalButtons?: React.ReactNode
   children?: React.ReactNode
-  title: string
 }) {
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginBottom: '1rem',
       }}
     >
-      <h3 style={{ textAlign: 'left', fontSize: '1.5em' }}>{title}</h3>
+      <div>{children}</div>
       <div
         style={{
           display: 'flex',
@@ -64,7 +64,7 @@ function ModalHeader({
           alignItems: 'center',
         }}
       >
-        {children}
+        {modalButtons}
         <ModalDismissButton>
           <CircleButton size={8}>
             <VisuallyHidden>Close</VisuallyHidden>

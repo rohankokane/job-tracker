@@ -14,7 +14,8 @@ interface CardProps {
 }
 function JobCard({ id, index, jobData, onClick }: CardProps) {
   const dispatch = useDispatch()
-  const onDelete = () => {
+  const onDelete: React.MouseEventHandler<HTMLElement> = (e) => {
+    e.stopPropagation()
     const [listId, itemIndex] = id.split('-')
     console.log('delete ', listId, itemIndex)
     dispatch({

@@ -24,6 +24,7 @@
     "react-scripts": "5.0.0",
     "sass": "^1.49.7",
     "typescript": "^4.5.5",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
     "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
     "eslint": "^8.8.0",

@@ -1,4 +1,4 @@
-import { Action } from 'types'
+import { Action, JobType } from 'types'
 import { StateType } from 'types'
 
 export default function reducer(state: StateType, action: Action) {
@@ -7,6 +7,7 @@ export default function reducer(state: StateType, action: Action) {
     case 'ADD': {
       const dataToBeAdded = action.payload
       const { status } = dataToBeAdded
+
       state[status].unshift(dataToBeAdded)
 
       return {
@@ -14,11 +15,46 @@ export default function reducer(state: StateType, action: Action) {
       }
     }
 
-    // case 'UPDATE': {
-    //   // const jobUpdate = state.find((obj: any) => obj.id === action.payload)
-    //   // jobUpdate.status = action.payload.status
-    //   return { ...state }
-    // }
+    case 'UPDATE': {
+      const data = action.payload
+      const { status } = data
+
+      const indexToUpdate = state[status].findIndex(({ id }) => id === data.id)
+      if (indexToUpdate === -1) return { ...state }
+
+      const updatedObj = {
+        ...state[status][indexToUpdate],
+        ...data,
+        lastUpdated: Date.now(),
+      }
+      // remove
+      state[status].splice(indexToUpdate, 1)
+      //add at the start
+      state[status].unshift(updatedObj)
+
+      return { ...state }
+    }
+
+    case 'UPDATE_NOTES': {
+      const { status, id, notes } = action.payload
+
+      const indexToUpdate = state[status].findIndex(({ id: _id }) => _id === id)
+      if (indexToUpdate === -1) return { ...state }
+
+      const updatedObj = {
+        ...state[status][indexToUpdate],
+        notes,
+        lastUpdated: Date.now(),
+      }
+
+      // remove
+      state[status].splice(indexToUpdate, 1)
+      //add at the start
+      state[status].unshift(updatedObj)
+
+      return { ...state }
+    }
+
     case 'DRAG_COMPLETE': {
       // update status and pop from one & add to another
       const { source, destination } = action.payload

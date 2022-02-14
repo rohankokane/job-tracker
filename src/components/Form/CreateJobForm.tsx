@@ -2,13 +2,14 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import { CompanyData } from 'types'
-import { useState } from 'react'
+import { CompanyData, JobType, StateType } from 'types'
+import { useEffect, useState } from 'react'
 import DropdownCombobox from 'components/shared/SearchBox/SearchComboBox'
 import DropdownSelect from 'components/shared/DropdownSelect'
-import { statusList } from 'utils/status'
+import { statusList, statusListObject } from 'utils/status'
 import Button from 'components/shared/Button'
 import { useModalToggle } from 'components/shared/Modal'
+import { v4 as uuidv4 } from 'uuid'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -35,7 +36,14 @@ const initialFormState = {
 
 type FormDataType = Yup.InferType<typeof formDataSchema>
 
-function CreateJobForm() {
+const URL = (url: string) => {
+  if (url.substring(0, 4) === 'http') return url
+  else {
+    return 'http://' + url
+  }
+}
+
+function CreateJobForm({ initialValue }: { initialValue?: JobType }) {
   const dispatch = useDispatch()
   const setIsOpenModal = useModalToggle()
   const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
@@ -49,33 +57,39 @@ function CreateJobForm() {
     errors,
     setFieldValue,
   } = useFormik({
-    initialValues: initialFormState,
+    initialValues: initialValue ?? initialFormState,
     validationSchema: formDataSchema,
     onSubmit: (values) => {
-      console.log('SUBMITTED')
-      const defaultCompanyData = {
-        name: values.company,
-        domain: '',
-        logo: '',
-      }
-      console.log(values)
-      const companyData = selectedCompany ?? defaultCompanyData
+      if (initialValue !== undefined) {
+        if (selectedCompany === undefined) return
 
-      const data = {
-        ...values,
-        logoUrl: selectedCompany?.logo || '',
-        companyData,
-        notes: '',
+        const data = { ...initialValue, ...values }
+        dispatch({ type: 'UPDATE', payload: data })
+      } else {
+        const defaultCompanyData = {
+          name: values.company,
+          domain: '',
+          logo: '',
+        }
+        const companyData = selectedCompany ?? defaultCompanyData
+        const data = {
+          ...values,
+          id: uuidv4().slice(0, 10),
+          link: URL(values.link),
+          logoUrl: selectedCompany?.logo || '',
+          companyData,
+          notes: '',
+        }
+        dispatch({ type: 'ADD', payload: data })
       }
-      dispatch({ type: 'ADD', payload: data })
       setIsOpenModal(false)
-      // dispatch ADD
     },
   })
 
-  // const handleSearchBoxChange = (value: string) => {
-  //   setValues({ ...values, company: value })
-  // }
+  useEffect(() => {
+    if (initialValue === undefined) return
+    setSelectedCompany({ ...initialValue.companyData })
+  }, [])
 
   const handleSelectedCompanyChange = (
     selectedItem: CompanyData | undefined
@@ -88,19 +102,12 @@ function CreateJobForm() {
       setValues({ ...values, company: selectedItem.name })
     }
   }
-
   const handleStatusChange = (selectedStatus: string) => {
     setValues({ ...values, status: selectedStatus })
   }
-  const handleInputChange = (companyName: string) => {
+  const handleCompanyNameChange = (companyName: string) => {
     setValues({ ...values, company: companyName })
   }
-
-  // const formSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-  //   e.preventDefault()
-  //   console.log('submitting....')
-  //   handleSubmit(e)
-  // }
 
   return (
     <div>
@@ -135,7 +142,7 @@ function CreateJobForm() {
             placeholder='Search company name'
             selectedItem={selectedCompany}
             handleSelectedItemChange={handleSelectedCompanyChange}
-            handleInputChange={handleInputChange}
+            handleInputChange={handleCompanyNameChange}
             {...getFieldProps('company')}
           />
         </div>
@@ -152,7 +159,11 @@ function CreateJobForm() {
           <DropdownSelect
             label={'Status'}
             items={statusList}
-            initialSelectedItem={statusList[0]}
+            initialSelectedItem={
+              initialValue === undefined
+                ? statusList[0]
+                : statusListObject[initialValue.status]
+            }
             className={styles.dropdownSelect}
             handleSelectedItem={handleStatusChange}
           />
@@ -187,7 +198,7 @@ function CreateJobForm() {
         </div>
         <div className={styles.formFooter}>
           <Button variant='primary' type='submit'>
-            Add job
+            {initialValue === undefined ? 'Add job' : 'Save'}
           </Button>
         </div>
       </form>

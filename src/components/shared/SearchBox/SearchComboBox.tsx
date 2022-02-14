@@ -44,11 +44,13 @@ function DropdownCombobox({
         handleSelectedItemChange(selectedItem)
       }
     },
-    onInputValueChange: ({ inputValue }) => {
+    onInputValueChange: (val) => {
+      const { inputValue } = val
+
       if (inputValue === undefined) return
 
       handleInputChange(inputValue)
-      if (selectedItem) {
+      if (val.selectedItem?.name !== inputValue) {
         handleSelectedItemChange(undefined)
       }
       if (inputValue) {
