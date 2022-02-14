@@ -10,7 +10,7 @@ interface CardProps {
   id: string
   index: number
   jobData: JobType
-  onClick: (index: number, status: string) => void
+  onClick: (id: string, status: string) => void
 }
 function JobCard({ id, index, jobData, onClick }: CardProps) {
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
   }
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
     // console.log('clicked', index, jobData)
-    onClick(index, jobData.status)
+    onClick(jobData.id, jobData.status)
   }
 
   return (

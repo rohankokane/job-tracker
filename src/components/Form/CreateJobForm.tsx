@@ -43,7 +43,13 @@ const URL = (url: string) => {
   }
 }
 
-function CreateJobForm({ initialValue }: { initialValue?: JobType }) {
+function CreateJobForm({
+  initialValue,
+  onUpdateData,
+}: {
+  initialValue?: JobType
+  onUpdateData?: () => void
+}) {
   const dispatch = useDispatch()
   const setIsOpenModal = useModalToggle()
   const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
@@ -65,6 +71,7 @@ function CreateJobForm({ initialValue }: { initialValue?: JobType }) {
 
         const data = { ...initialValue, ...values }
         dispatch({ type: 'UPDATE', payload: data })
+        onUpdateData?.()
       } else {
         const defaultCompanyData = {
           name: values.company,
@@ -81,8 +88,8 @@ function CreateJobForm({ initialValue }: { initialValue?: JobType }) {
           notes: '',
         }
         dispatch({ type: 'ADD', payload: data })
+        setIsOpenModal(false)
       }
-      setIsOpenModal(false)
     },
   })
 
@@ -198,7 +205,7 @@ function CreateJobForm({ initialValue }: { initialValue?: JobType }) {
         </div>
         <div className={styles.formFooter}>
           <Button variant='primary' type='submit'>
-            {initialValue === undefined ? 'Add job' : 'Save'}
+            {initialValue === undefined ? 'Add job' : 'Update'}
           </Button>
         </div>
       </form>

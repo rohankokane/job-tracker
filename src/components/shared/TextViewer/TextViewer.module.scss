@@ -1,0 +1,6 @@
+@use 'theme';
+
+.emptyDiv {
+  font-style: italic;
+  color: theme.$gray-900;
+}

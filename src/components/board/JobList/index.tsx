@@ -8,7 +8,7 @@ const JobList = ({
 }: {
   list: JobType[]
   keyTitle: string
-  handleOpenModal: (index: number, status: string) => void
+  handleOpenModal: (id: string, status: string) => void
 }) => {
   return (
     <>

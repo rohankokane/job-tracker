@@ -1,16 +1,18 @@
+interface Props extends React.HTMLProps<HTMLButtonElement> {
+  type?: 'button' | 'submit' | 'reset'
+  variant?: 'primary' | 'secondary'
+  children: React.ReactNode
+}
+
 function Button({
   type = 'button',
   variant = 'primary',
   children,
+  style,
   ...props
-}: {
-  type?: 'button' | 'submit' | 'reset'
-  variant?: 'primary' | 'secondary'
-  children: React.ReactNode
-  props?: React.HTMLProps<HTMLButtonElement>[]
-}) {
+}: Props) {
   return (
-    <button type={type} className={variant + ' btn'} {...props}>
+    <button type={type} className={variant + ' btn'} style={style} {...props}>
       {children}
     </button>
   )

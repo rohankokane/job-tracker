@@ -17,47 +17,60 @@ import JobInfo from '../JobInfo'
 import JobList from '../JobList'
 import styles from './JobListTable.module.scss'
 type ModalIndexType = {
-  index: number
+  id: string
   status: string
 }
 const JobListTable = ({ state }: { state: StateType }) => {
   const setIsModalOpen = useModalToggle()
   const [infoModal, setInfoModal] = useState<ModalIndexType>()
-  const [editModal, setEditModal] = useState<ModalIndexType>()
-  const handleOpenModal = (index: number, status: string) => {
-    console.log({ index, status })
-    if (editModal !== undefined) {
-      setEditModal(undefined)
+  const [updateModal, setUpdateModal] = useState<ModalIndexType>()
+  const handleOpenModal = (id: string, status: string) => {
+    if (updateModal !== undefined) {
+      setUpdateModal(undefined)
     }
-    setInfoModal({ status, index })
+    setInfoModal({ status, id })
     setIsModalOpen(true)
   }
-  const handleOpenEditModal = () => {
+  const handleOpenUpdateModal = () => {
     // console.log({ index, status })
     if (infoModal === undefined) {
       return
     }
     const infoData = infoModal
     setInfoModal(undefined)
-    setEditModal({ ...infoData })
-    // setIsModalOpen(true)
+    setUpdateModal({ ...infoData })
+  }
+  const handleUpdateData = () => {
+    if (updateModal === undefined) {
+      return
+    }
+
+    const updateData = updateModal
+    setUpdateModal(undefined)
+    setInfoModal({ ...updateData })
   }
   const getUnavailableMessage = () => {
     return 'no jobs added'
   }
+
   let infoModalData
-  let editModalData
+  let updateModalData
   if (infoModal !== undefined) {
-    infoModalData = state[infoModal.status][infoModal.index]
+    infoModalData = state[infoModal.status].find(
+      ({ id }) => id === infoModal.id
+    )
+    // [infoModal.index]
   }
-  if (editModal !== undefined) {
-    editModalData = state[editModal.status][editModal.index]
+  if (updateModal !== undefined) {
+    updateModalData = state[updateModal.status].find(
+      ({ id }) => id === updateModal.id
+    )
   }
 
   const editFormButton = (
     <CircleButton
       onClick={() => {
-        handleOpenEditModal()
+        handleOpenUpdateModal()
       }}
       size={8}
     >
@@ -108,14 +121,17 @@ const JobListTable = ({ state }: { state: StateType }) => {
           <JobInfo data={infoModalData} />
         </ModalContents>
       )}
-      {editModalData !== undefined && (
+      {updateModalData !== undefined && (
         <ModalContents style={{ maxWidth: '520px' }} aria-label='job details'>
           <ModalHeader>
             <div className={styles.jobInfoHeader}>
               <h2>Update details</h2>
             </div>
           </ModalHeader>
-          <CreateJobForm initialValue={editModalData} />
+          <CreateJobForm
+            initialValue={updateModalData}
+            onUpdateData={handleUpdateData}
+          />
         </ModalContents>
       )}
     </>

@@ -1,0 +1,20 @@
+@use 'theme';
+// .textEditor {
+//   font-family: 'Inter' !important;
+//   // div {
+//   //   border-color: theme.$gray-500 !important;
+//   // }
+//   // p {
+//   //   font-family: 'Inter' !important;
+//   // }
+// }
+
+.textEditor > .ql-toolbar.ql-snow {
+  border-radius: 5px 5px 0px 0px;
+  border-top: 1px solid rgb(223, 225, 230);
+  border-right: 1px solid rgb(223, 225, 230);
+  border-left: 1px solid rgb(223, 225, 230);
+  border-image: initial;
+  border-bottom: none;
+  border: none;
+}
