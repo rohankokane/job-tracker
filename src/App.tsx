@@ -1,4 +1,4 @@
-import NavBar from 'components/Navbar'
+import NavBar from './components/Navbar'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorFallback from 'components/shared/ErrorFallback'
 import JobBoard from 'screens/JobBoard'
