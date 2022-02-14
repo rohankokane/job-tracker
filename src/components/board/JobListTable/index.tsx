@@ -1,6 +1,6 @@
 import VisuallyHidden from '@reach/visually-hidden'
 import CreateJobForm from 'components/form/CreateJobForm'
-import List from 'components/List'
+import List from 'components/list'
 import CircleButton from 'components/shared/CircleButton'
 import Counter from 'components/shared/Counter'
 import Logo from 'components/shared/Logo'
