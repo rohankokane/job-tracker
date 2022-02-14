@@ -72,6 +72,7 @@ function TextEditor({
       <div
         style={{
           display: 'flex',
+          justifyContent: 'flex-end',
           margin: '0.8rem 0 0',
         }}
       >

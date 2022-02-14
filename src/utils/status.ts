@@ -20,8 +20,6 @@ export const statusListObject: listObject = {
   rejected: { label: 'Rejected', icon: '💣', value: 'rejected' },
 }
 
-// export const statusList = ['saved', 'applied', 'interview', 'offer', 'rejected']
-
 type headingType = {
   [k: string]: string
 }

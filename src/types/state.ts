@@ -2,7 +2,7 @@ export type JobType = {
   id: string
   jobTitle: string
   company: string
-  lastUpdated?: number
+  lastUpdated: number
   deadline?: number
   location: string
   link: string

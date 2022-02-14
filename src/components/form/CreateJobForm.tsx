@@ -86,6 +86,7 @@ function CreateJobForm({
           logoUrl: selectedCompany?.logo || '',
           companyData,
           notes: '',
+          lastUpdated: Date.now(),
         }
         dispatch({ type: 'ADD', payload: data })
         setIsOpenModal(false)
@@ -198,7 +199,7 @@ function CreateJobForm({
           <label htmlFor='description'>Description</label>
           <textarea
             id='description'
-            rows={3}
+            rows={4}
             className={'w-100 '}
             {...getFieldProps('description')}
           />

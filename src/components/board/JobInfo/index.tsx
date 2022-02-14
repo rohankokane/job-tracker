@@ -57,7 +57,10 @@ function JobInfo({ data }: { data: JobType }) {
         </div>
       </div>
       <div className={styles.infoContainer}>
-        <div className={styles.infoLabel}>Notes:</div>
+        <div className={styles.infoLabel}>
+          Notes:
+          <span className='helper-msg'> (click on the text below to edit)</span>
+        </div>
         <div className='my-1'>
           {editNotes ? (
             <TextEditor
