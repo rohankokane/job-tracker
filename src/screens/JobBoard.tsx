@@ -3,7 +3,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import styles from './JobBoard.module.scss'
 import { useBoard } from 'hooks/useBoard'
 import { useDispatch } from 'hooks/useDispatch'
-import JobListTable from 'components/board/JobListTable'
+import JobListTable from 'components/board/jobListTable'
 import { Modal } from 'components/shared/Modal'
 
 function JobBoard() {

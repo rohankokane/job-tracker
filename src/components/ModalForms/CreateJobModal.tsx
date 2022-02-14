@@ -1,4 +1,4 @@
-import CreateJobForm from 'components/Form/CreateJobForm'
+import CreateJobForm from 'components/form/CreateJobForm'
 import {
   Modal,
   ModalContents,
