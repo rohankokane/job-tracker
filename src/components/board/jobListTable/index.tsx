@@ -20,6 +20,17 @@ type ModalIndexType = {
   id: string
   status: string
 }
+type emptyList = {
+  [k: string]: string
+}
+const emptyListMessage: emptyList = {
+  saved: 'Click the add button above, to save new job',
+  applied: 'Start applying asap!',
+  interview: 'Be patient',
+  offer: 'You are almost there',
+  rejected: `It's a part of the process`,
+}
+
 const JobListTable = ({ state }: { state: StateType }) => {
   const setIsModalOpen = useModalToggle()
   const [infoModal, setInfoModal] = useState<ModalIndexType>()
@@ -48,9 +59,6 @@ const JobListTable = ({ state }: { state: StateType }) => {
     const updateData = updateModal
     setUpdateModal(undefined)
     setInfoModal({ ...updateData })
-  }
-  const getUnavailableMessage = () => {
-    return 'no jobs added'
   }
 
   let infoModalData
@@ -97,7 +105,9 @@ const JobListTable = ({ state }: { state: StateType }) => {
                   keyTitle={key}
                 />
               ) : (
-                <span className='unavailable'>{getUnavailableMessage()}</span>
+                <span className={styles.unavailable}>
+                  {emptyListMessage[key]}
+                </span>
               )}
             </List>
           </div>
@@ -109,7 +119,7 @@ const JobListTable = ({ state }: { state: StateType }) => {
             <div className={styles.jobInfoHeader}>
               <Logo
                 size={12}
-                url={infoModalData.logoUrl}
+                url={infoModalData.companyData.logo}
                 text={infoModalData.company}
               />
               <div className={styles.company}>

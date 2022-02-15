@@ -3,33 +3,46 @@
 .card {
   width: 100%;
   cursor: pointer !important;
-  .cardContent {
+  .cardContainer {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: column;
     justify-content: space-between;
-    width: 100%;
+    align-items: flex-start;
+    height: 100%;
+    padding: 0.8rem 0.6rem 0.4rem;
     height: 6rem;
     background-color: white;
     border-radius: 5px;
-    padding: 0.8rem 0.6rem;
     box-shadow: theme.$card-shadow;
     transition: background-color 0.1s ease-in;
-    .cardCompany {
-      display: flex;
-      font-size: 0.9rem;
-      .companyName {
-        font-weight: 500;
-      }
-      .cardText {
-        margin-left: 0.5rem;
-      }
+    .time {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: theme.$gray-900;
     }
-    .deleteBtn {
-      // display: none;
-      visibility: hidden;
+    .cardContent {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      .cardCompany {
+        display: flex;
+        font-size: 1rem;
+        color: theme.$black-font;
+        .companyName {
+          font-weight: 500;
+        }
+        .cardText {
+          margin-left: 0.5rem;
+        }
+      }
+      .deleteBtn {
+        // display: none;
+        visibility: hidden;
 
-      cursor: pointer;
+        cursor: pointer;
+      }
     }
     &:hover {
       background-color: theme.$gray-250;
@@ -41,10 +54,11 @@
       }
     }
   }
+
   margin-bottom: 0.8rem;
 }
 .drag {
-  .cardContent {
+  .cardContainer {
     box-shadow: 5px 10px 30px 5px theme.$gray-500;
     transform: rotateZ(3deg);
   }

@@ -5,6 +5,7 @@ import { FiTrash } from 'react-icons/fi'
 import { useDispatch } from 'hooks/useDispatch'
 import CircleButton from 'components/shared/CircleButton'
 import Logo from 'components/shared/Logo'
+import { timeSince } from 'utils/misc'
 
 interface CardProps {
   id: string
@@ -17,7 +18,6 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
   const onDelete: React.MouseEventHandler<HTMLElement> = (e) => {
     e.stopPropagation()
     const [listId, itemIndex] = id.split('-')
-    console.log('delete ', listId, itemIndex)
     dispatch({
       type: 'DELETE',
       payload: {
@@ -44,22 +44,31 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
           key={index}
           onClick={handleClick}
         >
-          <div className={styles.cardContent}>
-            <div className={styles.cardCompany}>
-              <Logo url={jobData?.logoUrl} text={jobData.company} />
-              <div className={styles.cardText}>
-                <div className={styles.companyName}>{jobData.company}</div>
-                <div className={styles.jobTitle}>{jobData.jobTitle}</div>
+          <div className={styles.cardContainer}>
+            <div className={styles.cardContent}>
+              <div className={styles.cardCompany}>
+                <Logo
+                  size={7.5}
+                  url={jobData?.logoUrl}
+                  text={jobData.company}
+                />
+                <div className={styles.cardText}>
+                  <div className={styles.companyName}>{jobData.company}</div>
+                  <div className={styles.jobTitle}>{jobData.jobTitle}</div>
+                </div>
               </div>
+              <CircleButton
+                className={styles.deleteBtn}
+                aria-label='delete'
+                onClick={onDelete}
+                size={6}
+              >
+                <FiTrash size={13} />
+              </CircleButton>
             </div>
-            <CircleButton
-              className={styles.deleteBtn}
-              aria-label='delete'
-              onClick={onDelete}
-              size={6}
-            >
-              <FiTrash size={13} />
-            </CircleButton>
+            <div className={styles.time}>
+              last updated: {timeSince(jobData.lastUpdated)}
+            </div>
           </div>
         </div>
       )}

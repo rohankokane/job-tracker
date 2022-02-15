@@ -26,6 +26,8 @@
       align-items: center;
       width: 100%;
       padding: 0.35rem 0.6rem;
+      z-index: 10;
+
       // border-bottom: 1px solid theme.$gray-500;
       min-height: 42px;
       &:last-child {
@@ -56,7 +58,7 @@
     span.companyLogo {
       position: absolute;
       right: 12px;
-      top: 3px;
+      top: 6px;
     }
   }
 }

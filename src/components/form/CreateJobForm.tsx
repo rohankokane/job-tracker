@@ -37,10 +37,17 @@ const initialFormState = {
 type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
-  if (url.substring(0, 4) === 'http') return url
-  else {
-    return 'http://' + url
-  }
+  if (url === '') return url
+  // let finalUrl
+  return url.split(',').reduce((finalUrl, url) => {
+    url = url.trim()
+    if (url.substring(0, 4) !== 'http') {
+      finalUrl = finalUrl + 'http://' + url + ', '
+    } else {
+      finalUrl = finalUrl + url + ', '
+    }
+    return finalUrl
+  }, '')
 }
 
 function CreateJobForm({
@@ -52,7 +59,11 @@ function CreateJobForm({
 }) {
   const dispatch = useDispatch()
   const setIsOpenModal = useModalToggle()
-  const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
+  const [selectedCompany, setSelectedCompany] = useState<CompanyData>({
+    name: '',
+    logo: '',
+    domain: '',
+  })
 
   const {
     values,
@@ -67,26 +78,30 @@ function CreateJobForm({
     validationSchema: formDataSchema,
     onSubmit: (values) => {
       if (initialValue !== undefined) {
-        if (selectedCompany === undefined) return
+        const data = {
+          ...initialValue,
+          ...values,
+          companyData: { ...selectedCompany },
+          link: URL(values.link),
+          logoUrl: selectedCompany.logo || '',
+          lastUpdated: Date.now(),
+          prevStatus: initialValue.status,
+        }
 
-        const data = { ...initialValue, ...values }
         dispatch({ type: 'UPDATE', payload: data })
         onUpdateData?.()
       } else {
-        const defaultCompanyData = {
-          name: values.company,
-          domain: '',
-          logo: '',
-        }
-        const companyData = selectedCompany ?? defaultCompanyData
+        const companyData = selectedCompany
         const data = {
           ...values,
           id: uuidv4().slice(0, 10),
           link: URL(values.link),
-          logoUrl: selectedCompany?.logo || '',
+          logoUrl: companyData.logo || '',
           companyData,
           notes: '',
+          lastUpdated: Date.now(),
         }
+
         dispatch({ type: 'ADD', payload: data })
         setIsOpenModal(false)
       }
@@ -98,21 +113,19 @@ function CreateJobForm({
     setSelectedCompany({ ...initialValue.companyData })
   }, [])
 
-  const handleSelectedCompanyChange = (
-    selectedItem: CompanyData | undefined
-  ) => {
-    if (selectedItem === undefined) {
-      setSelectedCompany(undefined)
-      setValues({ ...values, company: '' })
-    } else {
-      setSelectedCompany({ ...selectedItem })
-      setValues({ ...values, company: selectedItem.name })
-    }
+  const handleSelectedCompanyChange = (selectedItem: CompanyData) => {
+    setSelectedCompany({ ...selectedItem })
   }
   const handleStatusChange = (selectedStatus: string) => {
     setValues({ ...values, status: selectedStatus })
   }
-  const handleCompanyNameChange = (companyName: string) => {
+  const handleCompanyNameChange = (
+    companyName: string,
+    selectedItem: CompanyData
+  ) => {
+    if (companyName !== selectedItem.name) {
+      setSelectedCompany({ name: companyName, logo: '', domain: '' })
+    }
     setValues({ ...values, company: companyName })
   }
 
@@ -120,7 +133,7 @@ function CreateJobForm({
     <div>
       <form className={styles.newJobForm} onSubmit={handleSubmit}>
         <div>
-          <span className={styles.inputLabel}>
+          <span className={styles.inputLabelError}>
             <label htmlFor='jobTitle' className={'required '}>
               Title
             </label>
@@ -137,7 +150,7 @@ function CreateJobForm({
           />
         </div>
         <div>
-          <span className={styles.inputLabel}>
+          <span className={styles.inputLabelError}>
             <label htmlFor='company' className={'required '}>
               Company
             </label>
@@ -162,9 +175,10 @@ function CreateJobForm({
             {...getFieldProps('location')}
           />
         </div>
-        <>
+        <div>
           <DropdownSelect
             label={'Status'}
+            helperText={'Select the current status of the application'}
             items={statusList}
             initialSelectedItem={
               initialValue === undefined
@@ -174,16 +188,20 @@ function CreateJobForm({
             className={styles.dropdownSelect}
             handleSelectedItem={handleStatusChange}
           />
-        </>
+        </div>
         <div>
-          <label htmlFor='link'>Link</label>
+          <label htmlFor='link'>Links</label>
           <input
             type='text'
             id='link'
+            placeholder='e.g. https://abc.com, https://xyz.com'
             className={'w-100' + ''}
             autoComplete='off'
             {...getFieldProps('link')}
           />
+          <p className={styles.helperText}>
+            {`Multiple links can be added by separating them with a comma " , "`}
+          </p>
         </div>
         <div>
           <label htmlFor='salary'>Salary</label>
@@ -191,17 +209,24 @@ function CreateJobForm({
             type='text'
             id='salary'
             className={'w-100' + ''}
+            placeholder='e.g. 18,00,000'
             {...getFieldProps('salary')}
           />
+          <p className={styles.helperText}>
+            Salary can be mentioned with the currency eg. 100,000 USD.
+          </p>
         </div>
         <div>
           <label htmlFor='description'>Description</label>
           <textarea
             id='description'
-            rows={3}
+            rows={4}
             className={'w-100 '}
             {...getFieldProps('description')}
           />
+          <p className={styles.helperText}>
+            You can add job description / requirements here.
+          </p>
         </div>
         <div className={styles.formFooter}>
           <Button variant='primary' type='submit'>

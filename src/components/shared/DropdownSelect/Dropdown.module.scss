@@ -38,6 +38,8 @@
     background-color: white;
     border-radius: 5px;
     max-height: 150px;
+    z-index: 10;
+
     &.focused {
       display: block;
     }
@@ -70,6 +72,10 @@
         color: theme.$gray-900;
       }
     }
+  }
+  .helperText {
+    font-size: 0.75rem;
+    color: theme.$gray-900;
   }
 }
 .listIcon {

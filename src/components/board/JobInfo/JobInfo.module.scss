@@ -19,3 +19,20 @@
     text-transform: capitalize;
   }
 }
+
+.linkPills {
+  display: block;
+  font-size: 0.9rem;
+  max-width: 100%;
+  width: fit-content;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0.3rem 0;
+  padding: 3px 10px;
+  // text-align: center;
+  // margin: 0.2rem;
+  border-radius: 1rem;
+  background-color: theme.$brand-100;
+  color: theme.$brand-500;
+}

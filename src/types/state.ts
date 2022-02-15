@@ -2,7 +2,7 @@ export type JobType = {
   id: string
   jobTitle: string
   company: string
-  lastUpdated?: number
+  lastUpdated: number
   deadline?: number
   location: string
   link: string
@@ -19,7 +19,7 @@ export type StateType = {
 }
 
 export type CompanyData = {
-  domain?: string | undefined
-  logo?: string | undefined
+  domain: string
+  logo: string
   name: string
 }

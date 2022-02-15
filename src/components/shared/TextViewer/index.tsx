@@ -14,6 +14,7 @@ function TextViewer({
           onClick={() => {
             onClick?.()
           }}
+          className={styles.textDiv}
           dangerouslySetInnerHTML={{ __html: value }}
         />
       ) : (
@@ -23,7 +24,7 @@ function TextViewer({
           }}
           className={styles.emptyDiv}
         >
-          Add notes...
+          Write your notes here...
         </div>
       )}
     </div>

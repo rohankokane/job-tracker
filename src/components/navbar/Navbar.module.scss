@@ -28,4 +28,18 @@
       font-weight: 500;
     }
   }
+  .btnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    svg {
+      color: theme.$gray-900;
+    }
+    .helperText {
+      font-size: 0.85rem;
+      color: theme.$gray-900;
+      margin: 0 2rem 0 0.4rem;
+    }
+  }
 }
