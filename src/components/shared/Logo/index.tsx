@@ -28,6 +28,7 @@ function Logo({
         style={{
           width: `${size * 4}px`,
           height: `${size * 4}px`,
+          fontSize: `${size * 2}px`,
         }}
         className={styles.logo + ' ' + styles.text + ' ' + className}
       >

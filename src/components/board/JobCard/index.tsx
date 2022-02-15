@@ -48,7 +48,11 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
           <div className={styles.cardContainer}>
             <div className={styles.cardContent}>
               <div className={styles.cardCompany}>
-                <Logo url={jobData?.logoUrl} text={jobData.company} />
+                <Logo
+                  size={7.5}
+                  url={jobData?.logoUrl}
+                  text={jobData.company}
+                />
                 <div className={styles.cardText}>
                   <div className={styles.companyName}>{jobData.company}</div>
                   <div className={styles.jobTitle}>{jobData.jobTitle}</div>
