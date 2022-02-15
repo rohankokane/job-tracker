@@ -12,7 +12,7 @@ function NavBar() {
         <div className={styles.btnContainer}>
           <FiInfo size={16} />
           <p className={styles.helperText}>
-            Try dragging the cards to manage the board
+            You can drag the cards to manage the board.
           </p>
 
           <CreateJobModal>
