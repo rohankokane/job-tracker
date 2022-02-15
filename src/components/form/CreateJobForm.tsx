@@ -37,6 +37,8 @@ const initialFormState = {
 type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
+  if (url === '') return url
+
   if (url.substring(0, 4) === 'http') return url
   else {
     return 'http://' + url
@@ -52,7 +54,11 @@ function CreateJobForm({
 }) {
   const dispatch = useDispatch()
   const setIsOpenModal = useModalToggle()
-  const [selectedCompany, setSelectedCompany] = useState<CompanyData>()
+  const [selectedCompany, setSelectedCompany] = useState<CompanyData>({
+    name: '',
+    logo: '',
+    domain: '',
+  })
 
   const {
     values,
@@ -67,27 +73,38 @@ function CreateJobForm({
     validationSchema: formDataSchema,
     onSubmit: (values) => {
       if (initialValue !== undefined) {
-        if (selectedCompany === undefined) return
+        // if (selectedCompany === undefined) return
 
-        const data = { ...initialValue, ...values }
+        const data = {
+          ...initialValue,
+          ...values,
+          companyData: { ...selectedCompany },
+          logoUrl: selectedCompany.logo || '',
+          lastUpdated: Date.now(),
+          prevStatus: initialValue.status,
+        }
+        console.log('UPDATING', data)
+
         dispatch({ type: 'UPDATE', payload: data })
         onUpdateData?.()
       } else {
-        const defaultCompanyData = {
-          name: values.company,
-          domain: '',
-          logo: '',
-        }
-        const companyData = selectedCompany ?? defaultCompanyData
+        // const defaultCompanyData = {
+        //   name: values.company,
+        //   domain: '',
+        //   logo: '',
+        // }
+        const companyData = selectedCompany
         const data = {
           ...values,
           id: uuidv4().slice(0, 10),
           link: URL(values.link),
-          logoUrl: selectedCompany?.logo || '',
+          logoUrl: companyData.logo || '',
           companyData,
           notes: '',
           lastUpdated: Date.now(),
         }
+        console.log('UPDATING', data)
+
         dispatch({ type: 'ADD', payload: data })
         setIsOpenModal(false)
       }
@@ -99,21 +116,27 @@ function CreateJobForm({
     setSelectedCompany({ ...initialValue.companyData })
   }, [])
 
-  const handleSelectedCompanyChange = (
-    selectedItem: CompanyData | undefined
-  ) => {
-    if (selectedItem === undefined) {
-      setSelectedCompany(undefined)
-      setValues({ ...values, company: '' })
-    } else {
-      setSelectedCompany({ ...selectedItem })
-      setValues({ ...values, company: selectedItem.name })
-    }
+  const handleSelectedCompanyChange = (selectedItem: CompanyData) => {
+    console.log('SELECTED_ITEM_CHANGE', { selectedItem })
+    // if (selectedItem === undefined) {
+    //   setSelectedCompany({})
+    //   // setValues({ ...values, company: '' })
+    // } else {
+    setSelectedCompany({ ...selectedItem })
+    // setValues({ ...values, company: selectedItem.name })
+    // }
   }
   const handleStatusChange = (selectedStatus: string) => {
     setValues({ ...values, status: selectedStatus })
   }
-  const handleCompanyNameChange = (companyName: string) => {
+  const handleCompanyNameChange = (
+    companyName: string,
+    selectedItem: CompanyData
+  ) => {
+    console.log('COMPANY_NAME_CHANGE', { companyName, selectedItem })
+    if (companyName !== selectedItem.name) {
+      setSelectedCompany({ name: companyName, logo: '', domain: '' })
+    }
     setValues({ ...values, company: companyName })
   }
 

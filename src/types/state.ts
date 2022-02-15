@@ -19,7 +19,7 @@ export type StateType = {
 }
 
 export type CompanyData = {
-  domain?: string | undefined
-  logo?: string | undefined
+  domain: string
+  logo: string
   name: string
 }

@@ -24,7 +24,13 @@ function Logo({
     )
   } else {
     return (
-      <span className={styles.logo + ' ' + styles.text + ' ' + className}>
+      <span
+        style={{
+          width: `${size * 4}px`,
+          height: `${size * 4}px`,
+        }}
+        className={styles.logo + ' ' + styles.text + ' ' + className}
+      >
         {text.charAt(0)}
       </span>
     )

@@ -28,7 +28,7 @@ function JobInfo({ data }: { data: JobType }) {
       <div className={styles.grid2}>
         <div className={styles.infoContainer}>
           <div className={styles.infoLabel}>Location:</div>
-          <div className={styles.infoData}>{data.location}</div>
+          <div className={styles.infoData}>{data.location || '-'}</div>
         </div>
         <div className={styles.infoContainer}>
           <div className={styles.infoLabel}>Status:</div>
@@ -40,20 +40,22 @@ function JobInfo({ data }: { data: JobType }) {
         <div>
           {/* <span href={data.link} target='_blank' rel='noopener noreferrer'> */}
           <a href={data.link} target='_blank' rel='noopener noreferrer'>
-            {data.link}
+            {data.link || '-'}
           </a>
         </div>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Salary:</div>
-        <div className={styles.infoData}>{data.salary}</div>
+        <div className={styles.infoData}>{data.salary || '-'}</div>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Description:</div>
         <div>
-          {data.description.split(/\n/).map((line) => (
-            <p key={line}>{line}</p>
-          ))}
+          {data.description === ''
+            ? '-'
+            : data.description
+                .split(/\n/)
+                .map((line) => <p key={line}>{line}</p>)}
         </div>
       </div>
       <div className={styles.infoContainer}>

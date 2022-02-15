@@ -6,9 +6,9 @@ import Logo from '../Logo'
 import styles from './SearchBox.module.scss'
 
 type Props = {
-  selectedItem: CompanyData | undefined
-  handleSelectedItemChange: (arg: CompanyData | undefined) => void
-  handleInputChange: (arg: string) => void
+  selectedItem: CompanyData
+  handleSelectedItemChange: (arg: CompanyData) => void
+  handleInputChange: (arg: string, arg2: CompanyData) => void
   placeholder?: string
 }
 
@@ -45,14 +45,18 @@ function DropdownCombobox({
       }
     },
     onInputValueChange: (val) => {
-      const { inputValue } = val
+      const { inputValue, selectedItem } = val
+      console.log({ val }, 'INPUT')
 
       if (inputValue === undefined) return
+      if (selectedItem == null) return
 
-      handleInputChange(inputValue)
-      if (val.selectedItem?.name !== inputValue) {
-        handleSelectedItemChange(undefined)
-      }
+      handleInputChange(inputValue, selectedItem)
+      // if (selectedItem.name !== inputValue) {
+      //   console.log({ val }, 'SELECTED')
+
+      //   handleSelectedItemChange(selectedItem)
+      // }
       if (inputValue) {
         debouncedSearch(inputValue)
       }

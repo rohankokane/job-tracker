@@ -17,18 +17,17 @@ export default function reducer(state: StateType, action: Action) {
 
     case 'UPDATE': {
       const data = action.payload
-      const { status } = data
+      console.log({ data }, 'REDUCER')
+      const { status, prevStatus, ...restObj } = data
 
-      const indexToUpdate = state[status].findIndex(({ id }) => id === data.id)
+      const indexToUpdate = state[prevStatus].findIndex(
+        ({ id }) => id === data.id
+      )
       if (indexToUpdate === -1) return { ...state }
 
-      const updatedObj = {
-        ...state[status][indexToUpdate],
-        ...data,
-        lastUpdated: Date.now(),
-      }
+      const updatedObj = { ...restObj, status }
       // remove
-      state[status].splice(indexToUpdate, 1)
+      state[prevStatus].splice(indexToUpdate, 1)
       //add at the start
       state[status].unshift(updatedObj)
 

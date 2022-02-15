@@ -119,7 +119,7 @@ const JobListTable = ({ state }: { state: StateType }) => {
             <div className={styles.jobInfoHeader}>
               <Logo
                 size={12}
-                url={infoModalData.logoUrl}
+                url={infoModalData.companyData.logo}
                 text={infoModalData.company}
               />
               <div className={styles.company}>

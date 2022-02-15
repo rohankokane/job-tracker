@@ -21,12 +21,12 @@ export function timeSince(date: number) {
   }
   interval = seconds / 3600
   if (interval > 1) {
-    return Math.floor(interval) + ' hours ago'
+    return Math.floor(interval) + ' hr ago'
   }
   interval = seconds / 60
   if (interval > 1) {
     return Math.floor(interval) + ' min ago'
   }
   if (seconds === 0) return 'now'
-  return Math.floor(seconds) + ' seconds ago'
+  return Math.floor(seconds) + ' sec ago'
 }
