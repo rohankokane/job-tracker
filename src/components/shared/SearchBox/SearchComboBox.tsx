@@ -46,7 +46,6 @@ function DropdownCombobox({
     },
     onInputValueChange: (val) => {
       const { inputValue, selectedItem } = val
-      console.log({ val }, 'INPUT')
 
       if (inputValue === undefined) return
       if (selectedItem == null) return
@@ -84,7 +83,7 @@ function DropdownCombobox({
           className='w-100 '
           {...getInputProps({ type: 'text', id: 'company' })}
         />
-        {selectedItem !== undefined && (
+        {selectedItem.name && (
           <Logo
             className={styles.companyLogo}
             text={selectedItem.name}

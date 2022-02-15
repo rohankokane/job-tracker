@@ -2,7 +2,6 @@ import { Action, JobType } from 'types'
 import { StateType } from 'types'
 
 export default function reducer(state: StateType, action: Action) {
-  console.log({ state, action })
   switch (action.type) {
     case 'ADD': {
       const dataToBeAdded = action.payload
@@ -17,7 +16,6 @@ export default function reducer(state: StateType, action: Action) {
 
     case 'UPDATE': {
       const data = action.payload
-      console.log({ data }, 'REDUCER')
       const { status, prevStatus, ...restObj } = data
 
       const indexToUpdate = state[prevStatus].findIndex(

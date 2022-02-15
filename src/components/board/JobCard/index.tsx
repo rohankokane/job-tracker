@@ -18,7 +18,6 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
   const onDelete: React.MouseEventHandler<HTMLElement> = (e) => {
     e.stopPropagation()
     const [listId, itemIndex] = id.split('-')
-    console.log('delete ', listId, itemIndex)
     dispatch({
       type: 'DELETE',
       payload: {

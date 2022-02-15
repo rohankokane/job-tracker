@@ -39,9 +39,21 @@ function JobInfo({ data }: { data: JobType }) {
         <div className={styles.infoLabel}>Links:</div>
         <div>
           {/* <span href={data.link} target='_blank' rel='noopener noreferrer'> */}
-          <a href={data.link} target='_blank' rel='noopener noreferrer'>
-            {data.link || '-'}
-          </a>
+          {data.link !== ''
+            ? data.link.split(', ').map((link) =>
+                link === '' ? null : (
+                  <a
+                    key={link}
+                    className={styles.linkPills}
+                    href={link}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    {link}
+                  </a>
+                )
+              )
+            : '-'}
         </div>
       </div>
       <div className={styles.infoContainer}>

@@ -38,11 +38,16 @@ type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
   if (url === '') return url
-
-  if (url.substring(0, 4) === 'http') return url
-  else {
-    return 'http://' + url
-  }
+  // let finalUrl
+  return url.split(',').reduce((finalUrl, url) => {
+    url = url.trim()
+    if (url.substring(0, 4) !== 'http') {
+      finalUrl = finalUrl + 'http://' + url + ', '
+    } else {
+      finalUrl = finalUrl + url + ', '
+    }
+    return finalUrl
+  }, '')
 }
 
 function CreateJobForm({
@@ -73,26 +78,19 @@ function CreateJobForm({
     validationSchema: formDataSchema,
     onSubmit: (values) => {
       if (initialValue !== undefined) {
-        // if (selectedCompany === undefined) return
-
         const data = {
           ...initialValue,
           ...values,
           companyData: { ...selectedCompany },
+          link: URL(values.link),
           logoUrl: selectedCompany.logo || '',
           lastUpdated: Date.now(),
           prevStatus: initialValue.status,
         }
-        console.log('UPDATING', data)
 
         dispatch({ type: 'UPDATE', payload: data })
         onUpdateData?.()
       } else {
-        // const defaultCompanyData = {
-        //   name: values.company,
-        //   domain: '',
-        //   logo: '',
-        // }
         const companyData = selectedCompany
         const data = {
           ...values,
@@ -103,7 +101,6 @@ function CreateJobForm({
           notes: '',
           lastUpdated: Date.now(),
         }
-        console.log('UPDATING', data)
 
         dispatch({ type: 'ADD', payload: data })
         setIsOpenModal(false)
@@ -117,14 +114,7 @@ function CreateJobForm({
   }, [])
 
   const handleSelectedCompanyChange = (selectedItem: CompanyData) => {
-    console.log('SELECTED_ITEM_CHANGE', { selectedItem })
-    // if (selectedItem === undefined) {
-    //   setSelectedCompany({})
-    //   // setValues({ ...values, company: '' })
-    // } else {
     setSelectedCompany({ ...selectedItem })
-    // setValues({ ...values, company: selectedItem.name })
-    // }
   }
   const handleStatusChange = (selectedStatus: string) => {
     setValues({ ...values, status: selectedStatus })
@@ -133,7 +123,6 @@ function CreateJobForm({
     companyName: string,
     selectedItem: CompanyData
   ) => {
-    console.log('COMPANY_NAME_CHANGE', { companyName, selectedItem })
     if (companyName !== selectedItem.name) {
       setSelectedCompany({ name: companyName, logo: '', domain: '' })
     }
@@ -144,7 +133,7 @@ function CreateJobForm({
     <div>
       <form className={styles.newJobForm} onSubmit={handleSubmit}>
         <div>
-          <span className={styles.inputLabel}>
+          <span className={styles.inputLabelError}>
             <label htmlFor='jobTitle' className={'required '}>
               Title
             </label>
@@ -161,7 +150,7 @@ function CreateJobForm({
           />
         </div>
         <div>
-          <span className={styles.inputLabel}>
+          <span className={styles.inputLabelError}>
             <label htmlFor='company' className={'required '}>
               Company
             </label>
@@ -186,9 +175,10 @@ function CreateJobForm({
             {...getFieldProps('location')}
           />
         </div>
-        <>
+        <div>
           <DropdownSelect
             label={'Status'}
+            helperText={'Select the current status of the application'}
             items={statusList}
             initialSelectedItem={
               initialValue === undefined
@@ -198,16 +188,20 @@ function CreateJobForm({
             className={styles.dropdownSelect}
             handleSelectedItem={handleStatusChange}
           />
-        </>
+        </div>
         <div>
-          <label htmlFor='link'>Link</label>
+          <label htmlFor='link'>Links</label>
           <input
             type='text'
             id='link'
+            placeholder='e.g. https://abc.com, https://xyz.com'
             className={'w-100' + ''}
             autoComplete='off'
             {...getFieldProps('link')}
           />
+          <p className={styles.helperText}>
+            {`Multiple links can be added by separating them with a comma " , "`}
+          </p>
         </div>
         <div>
           <label htmlFor='salary'>Salary</label>
@@ -215,8 +209,12 @@ function CreateJobForm({
             type='text'
             id='salary'
             className={'w-100' + ''}
+            placeholder='e.g. 18,00,000'
             {...getFieldProps('salary')}
           />
+          <p className={styles.helperText}>
+            Salary can be mentioned with the currency eg. 100,000 USD.
+          </p>
         </div>
         <div>
           <label htmlFor='description'>Description</label>
@@ -226,6 +224,9 @@ function CreateJobForm({
             className={'w-100 '}
             {...getFieldProps('description')}
           />
+          <p className={styles.helperText}>
+            You can add job description / requirements here.
+          </p>
         </div>
         <div className={styles.formFooter}>
           <Button variant='primary' type='submit'>

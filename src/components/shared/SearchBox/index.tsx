@@ -37,14 +37,12 @@ function SearchBox(props: Props) {
         window.removeEventListener('click', closeList)
       }
     }, 0)
-    console.log({ searchBoxFocus })
     return () => {
       window.removeEventListener('click', closeList)
     }
   }, [searchBoxFocus])
 
   const closeList = () => {
-    console.log('close')
     setSearchBoxFocus(false)
   }
 

@@ -13,6 +13,7 @@ type SelectProps = {
   items: Option[]
   initialSelectedItem?: Option
   label: string
+  helperText?: string
   className?: string
   handleSelectedItem: (arg: string) => void
 }
@@ -21,6 +22,7 @@ function DropdownSelect({
   items,
   initialSelectedItem,
   label,
+  helperText,
   className,
   handleSelectedItem,
 }: SelectProps) {
@@ -58,6 +60,7 @@ function DropdownSelect({
         {selectedItem?.label}
         <FiChevronDown className={styles.downArrow} />
       </button>
+      {helperText && <p className={styles.helperText}>{helperText}</p>}
       <ul {...getMenuProps()}>
         {isOpen &&
           items.map(({ value, label, icon }, index) => (
