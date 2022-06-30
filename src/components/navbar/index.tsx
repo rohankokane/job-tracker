@@ -6,20 +6,22 @@ import styles from './Navbar.module.scss'
 
 function NavBar() {
   return (
-    <nav className={styles.nav}>
-      <ul>
-        <li>Job Board</li>
-        <div className={styles.btnContainer}>
-          <FiInfo size={16} />
-          <p className={styles.helperText}>
-            You can drag the cards to manage the board.
-          </p>
+    <nav className='nav-contain'>
+      <div className={styles.nav + ' contain'}>
+        <ul>
+          <li>Job Board</li>
+          <div className={styles.btnContainer}>
+            <FiInfo size={16} />
+            <p className={styles.helperText}>
+              You can drag the cards to manage the board.
+            </p>
 
-          <CreateJobModal>
-            <Button variant='primary'>Add</Button>
-          </CreateJobModal>
-        </div>
-      </ul>
+            <CreateJobModal>
+              <Button variant='primary'>Add</Button>
+            </CreateJobModal>
+          </div>
+        </ul>
+      </div>
     </nav>
   )
 }
