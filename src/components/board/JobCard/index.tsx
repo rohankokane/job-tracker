@@ -9,6 +9,7 @@ import { timeSince } from 'utils/misc'
 import { ModalAction } from 'reducers/modalReducer'
 import { useModalToggle } from 'components/shared/Modal'
 import { FaTrash, FaTrashAlt } from 'react-icons/fa'
+import React from 'react'
 
 interface CardProps {
   index: number
@@ -29,7 +30,6 @@ function JobCard({
   lastUpdated,
   modalDispatch,
 }: CardProps) {
-  // const dispatch = useDispatch()
   const setIsModalOpen = useModalToggle()
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
@@ -91,4 +91,5 @@ function JobCard({
   )
 }
 
-export default JobCard
+// export default JobCard
+export default React.memo(JobCard)

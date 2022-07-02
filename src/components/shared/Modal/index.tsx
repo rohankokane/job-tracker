@@ -8,25 +8,28 @@ import { DialogProps } from '@reach/dialog'
 
 type ModalContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 
-const ModalContext = React.createContext(null as unknown as ModalContextType)
+const ModalValueContext = React.createContext(null as unknown as boolean)
+const ModalToggleContext = React.createContext(
+  null as unknown as React.Dispatch<React.SetStateAction<boolean>>
+)
 
 export function useModalToggle() {
-  const modalContext = React.useContext(ModalContext)
+  const modalContext = React.useContext(ModalToggleContext)
   if (!modalContext) {
-    throw Error(
-      'to use modal dismiss hook it has to be used within a Modal component'
-    )
+    throw Error('to use modal hook it has to be used within a Modal component')
   }
-  return modalContext[1]
+  return modalContext
 }
 
 function Modal({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <ModalContext.Provider value={[isOpen, setIsOpen]}>
-      {children}
-    </ModalContext.Provider>
+    <ModalToggleContext.Provider value={setIsOpen}>
+      <ModalValueContext.Provider value={isOpen}>
+        {children}
+      </ModalValueContext.Provider>
+    </ModalToggleContext.Provider>
   )
 }
 
@@ -68,7 +71,7 @@ function ModalHeader({
 
 function ModalDismissButton({ children }: { children: React.ReactElement }) {
   const child = children
-  const [, setIsOpen] = React.useContext(ModalContext)
+  const setIsOpen = React.useContext(ModalToggleContext)
   return React.cloneElement(child, {
     onClick: callAll(() => {
       setIsOpen(false)
@@ -79,7 +82,7 @@ function ModalDismissButton({ children }: { children: React.ReactElement }) {
 
 function ModalOpenButton({ children }: { children: React.ReactElement }) {
   const child = children
-  const [, setIsOpen] = React.useContext(ModalContext)
+  const setIsOpen = React.useContext(ModalToggleContext)
   return React.cloneElement(child, {
     onClick: callAll(() => {
       setIsOpen(true)
@@ -105,7 +108,8 @@ interface ModalContentsProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode
 }
 function ModalContentsBase({ children, ...props }: ModalContentsProps) {
-  const [isOpen, setIsOpen] = React.useContext(ModalContext)
+  const setIsOpen = React.useContext(ModalToggleContext)
+  const isOpen = React.useContext(ModalValueContext)
   return (
     <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} {...props}>
       {children}

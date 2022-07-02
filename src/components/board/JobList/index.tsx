@@ -1,8 +1,9 @@
+import React from 'react'
 import { ModalAction } from 'reducers/modalReducer'
 import { JobType } from 'types'
 import JobCard from '../JobCard'
 
-const JobList = ({
+function JobList({
   list,
   keyTitle,
   modalDispatch,
@@ -10,7 +11,7 @@ const JobList = ({
   list: JobType[]
   keyTitle: string
   modalDispatch: React.Dispatch<ModalAction>
-}) => {
+}) {
   return (
     <>
       {list.map((jobObj, index) => (
@@ -29,4 +30,5 @@ const JobList = ({
   )
 }
 
-export default JobList
+// export default JobList
+export default React.memo(JobList)
