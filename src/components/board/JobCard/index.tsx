@@ -49,7 +49,7 @@ function JobCard({
     // })
   }
 
-  const id = `${status}-${index.toString()}`
+  const id = `${lastUpdated}-${index}`
   return (
     <Draggable draggableId={id} index={index}>
       {(provided, snapshot) => (

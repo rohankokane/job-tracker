@@ -16,7 +16,7 @@ function JobList({
     <>
       {list.map((jobObj, index) => (
         <JobCard
-          key={`${keyTitle}-${index}`}
+          key={`${jobObj.id}-${index}`}
           status={keyTitle}
           index={index}
           company={jobObj.company}
@@ -31,4 +31,4 @@ function JobList({
 }
 
 // export default JobList
-export default React.memo(JobList)
+export default JobList
