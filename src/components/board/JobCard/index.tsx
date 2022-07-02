@@ -2,7 +2,6 @@ import { Draggable } from 'react-beautiful-dnd'
 import { JobType } from 'types'
 import styles from './JobCard.module.scss'
 import { FiTrash } from 'react-icons/fi'
-import { useDispatch } from 'hooks/useDispatch'
 import CircleButton from 'components/shared/CircleButton'
 import Logo from 'components/shared/Logo'
 import { timeSince } from 'utils/misc'
@@ -36,17 +35,10 @@ function JobCard({
     setIsModalOpen(true)
     modalDispatch({ type: 'SHOW_INFO', payload: { status, index } })
   }
-  const onDelete: React.MouseEventHandler<HTMLElement> = (e) => {
+  const handleDelete: React.MouseEventHandler<HTMLElement> = (e) => {
     e.stopPropagation()
     setIsModalOpen(true)
     modalDispatch({ type: 'CONFIRM_DELETE', payload: { status, index } })
-    // dispatch({
-    //   type: 'DELETE',
-    //   payload: {
-    //     listId,
-    //     itemIndex,
-    //   },
-    // })
   }
 
   const id = `${lastUpdated}-${index}`
@@ -75,7 +67,7 @@ function JobCard({
               <CircleButton
                 className={styles.deleteBtn}
                 aria-label='delete'
-                onClick={onDelete}
+                onClick={handleDelete}
                 size={6}
               >
                 <FaTrash color='gray' size={12} />

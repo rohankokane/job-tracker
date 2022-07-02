@@ -30,5 +30,4 @@ function JobList({
   )
 }
 
-// export default JobList
 export default JobList
