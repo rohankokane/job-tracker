@@ -29,16 +29,6 @@ function Modal({ children }: { children: React.ReactNode }) {
     </ModalContext.Provider>
   )
 }
-{
-  /* <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-<ModalDismissButton>
-  <CircleButton>
-    <VisuallyHidden>Close</VisuallyHidden>
-    <FiX aria-hidden />
-  </CircleButton>
-</ModalDismissButton>
-</div> */
-}
 
 function ModalHeader({
   modalButtons,

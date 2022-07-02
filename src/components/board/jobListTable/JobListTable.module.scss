@@ -52,3 +52,12 @@
   text-align: center;
   margin-top: 2rem;
 }
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin: 2.5rem 0 0;
+  & > button {
+    margin: 0 0.5rem 0 0;
+  }
+}

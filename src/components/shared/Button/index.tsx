@@ -1,6 +1,6 @@
 interface Props extends React.HTMLProps<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset'
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'danger'
   children: React.ReactNode
 }
 

@@ -1,24 +1,28 @@
+import { ModalAction } from 'reducers/modalReducer'
 import { JobType } from 'types'
 import JobCard from '../JobCard'
 
 const JobList = ({
   list,
   keyTitle,
-  handleOpenModal,
+  modalDispatch,
 }: {
   list: JobType[]
   keyTitle: string
-  handleOpenModal: (id: string, status: string) => void
+  modalDispatch: React.Dispatch<ModalAction>
 }) => {
   return (
     <>
       {list.map((jobObj, index) => (
         <JobCard
           key={`${keyTitle}-${index}`}
-          id={`${keyTitle}-${index}`}
+          status={keyTitle}
           index={index}
-          jobData={jobObj}
-          onClick={handleOpenModal}
+          company={jobObj.company}
+          jobTitle={jobObj.jobTitle}
+          logoUrl={jobObj?.logoUrl}
+          lastUpdated={jobObj.lastUpdated}
+          modalDispatch={modalDispatch}
         />
       ))}
     </>

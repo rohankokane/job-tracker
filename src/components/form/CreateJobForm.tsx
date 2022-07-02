@@ -10,6 +10,7 @@ import { statusList, statusListObject } from 'utils/status'
 import Button from 'components/shared/Button'
 import { useModalToggle } from 'components/shared/Modal'
 import { v4 as uuidv4 } from 'uuid'
+import { ModalAction } from 'reducers/modalReducer'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -52,10 +53,10 @@ const URL = (url: string) => {
 
 function CreateJobForm({
   initialValue,
-  onUpdateData,
+  modalDispatch,
 }: {
   initialValue?: JobType
-  onUpdateData?: () => void
+  modalDispatch?: React.Dispatch<ModalAction>
 }) {
   const dispatch = useDispatch()
   const setIsOpenModal = useModalToggle()
@@ -89,7 +90,12 @@ function CreateJobForm({
         }
 
         dispatch({ type: 'UPDATE', payload: data })
-        onUpdateData?.()
+
+        const isStatusChanged = initialValue.status !== data.status
+        modalDispatch?.({
+          type: 'EDIT_SUCCESS',
+          payload: { isStatusChanged, status: data.status },
+        })
       } else {
         const companyData = selectedCompany
         const data = {

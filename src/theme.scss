@@ -14,6 +14,9 @@ $brand-800: #192048;
 $brand-900: #0d1126;
 
 $invalid-red: #e78c8c;
+$red-500: #e53e3e;
+$red-600: #c53030;
+$red-700: #9b2c2c;
 
 $gray-100: rgb(245, 245, 245);
 $gray-200: rgb(240, 240, 240);
@@ -30,6 +33,9 @@ $drop-shadow: rgb(25 4 69 / 10%) 0px 3px 10px;
 $dropdown-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px,
   rgb(9 30 66 / 31%) 0px 0px 1px;
 
+$transition-property-common: background-color, border-color, color, fill, stroke,
+  opacity, box-shadow, transform;
+$transition-duration: 200ms;
 // 50: '#ECEEF8',
 // 100: '#D9DDF2',
 // 200: '#B0B7E3',
