@@ -65,6 +65,16 @@ const JobListTable = ({ state }: { state: StateType }) => {
     <>
       <CircleButton
         onClick={() => {
+          modalDispatch({ type: 'EDIT_INFO' })
+        }}
+        size={8}
+        aria-label='edit'
+      >
+        <VisuallyHidden>Edit</VisuallyHidden>
+        <FiEdit size={16} />
+      </CircleButton>
+      <CircleButton
+        onClick={() => {
           if (modalState.modalToShow === 'NONE') return
           modalDispatch({
             type: 'CONFIRM_DELETE',
@@ -75,16 +85,6 @@ const JobListTable = ({ state }: { state: StateType }) => {
         aria-label='delete'
       >
         <FiTrash size={16} />
-      </CircleButton>
-      <CircleButton
-        onClick={() => {
-          modalDispatch({ type: 'EDIT_INFO' })
-        }}
-        size={8}
-        aria-label='edit'
-      >
-        <VisuallyHidden>Edit</VisuallyHidden>
-        <FiEdit size={16} />
       </CircleButton>
     </>
   )

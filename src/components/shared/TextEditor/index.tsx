@@ -59,7 +59,7 @@ function TextEditor({
   // }
 
   return (
-    <div>
+    <>
       <ReactQuill
         theme='snow'
         className={'textEditor'}
@@ -94,7 +94,7 @@ function TextEditor({
           Cancel
         </Button>
       </div>
-    </div>
+    </>
   )
 }
 
