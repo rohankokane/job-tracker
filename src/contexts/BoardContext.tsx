@@ -19,25 +19,7 @@ const initialState: StateType = {
       lastUpdated: 1656868426705,
       status: 'saved',
     },
-    {
-      jobTitle: 'Frontend Engineer',
-      company: 'Razorpay',
-      location: 'Bangalore',
-      link: 'https://razorpay.com/jobs, ',
-      description:
-        'Desired Skills and Experience:\nA minimum of 1+ years of relevant experience\nProficient knowledge of any popular JS framework like React, Ember, Angular or Backbone\nExperience with common frontend tools like SASS/Stylus, Jade, Grunt/Gulp etc\nGood understanding of REST API\nAbility to build a feature from scratch & drive it to completion\nA willingness to learn new technology, whatever lets you deliver the best product\n\nApart from these, we also expect the following, but we accept that you can be an absolutely great developer without fulfilling the below. So go ahead and apply even if the following aren’t applicable:\nHave a few weekend side-projects up on GitHub\nHave contributed to an open source project\nHave worked at a product company\nHave working knowledge of a backend programming language',
-      salary: '',
-      id: 'ffaffc07-e',
-      logoUrl: 'https://logo.clearbit.com/razorpay.com',
-      companyData: {
-        name: 'Razorpay',
-        domain: 'razorpay.com',
-        logo: 'https://logo.clearbit.com/razorpay.com',
-      },
-      notes: '<p>Focus on core javascript skills</p>',
-      lastUpdated: 1656867925334,
-      status: 'saved',
-    },
+
     {
       jobTitle: 'Frontend Engineer',
       company: 'Amazon',
@@ -58,7 +40,27 @@ const initialState: StateType = {
       status: 'saved',
     },
   ],
-  applied: [],
+  applied: [
+    {
+      jobTitle: 'Frontend Engineer',
+      company: 'Razorpay',
+      location: 'Bangalore',
+      link: 'https://razorpay.com/jobs, ',
+      description:
+        'Desired Skills and Experience:\nA minimum of 1+ years of relevant experience\nProficient knowledge of any popular JS framework like React, Ember, Angular or Backbone\nExperience with common frontend tools like SASS/Stylus, Jade, Grunt/Gulp etc\nGood understanding of REST API\nAbility to build a feature from scratch & drive it to completion\nA willingness to learn new technology, whatever lets you deliver the best product\n\nApart from these, we also expect the following, but we accept that you can be an absolutely great developer without fulfilling the below. So go ahead and apply even if the following aren’t applicable:\nHave a few weekend side-projects up on GitHub\nHave contributed to an open source project\nHave worked at a product company\nHave working knowledge of a backend programming language',
+      salary: '',
+      id: 'ffaffc07-e',
+      logoUrl: 'https://logo.clearbit.com/razorpay.com',
+      companyData: {
+        name: 'Razorpay',
+        domain: 'razorpay.com',
+        logo: 'https://logo.clearbit.com/razorpay.com',
+      },
+      notes: '<p>Focus on core javascript skills</p>',
+      lastUpdated: 1656867925334,
+      status: 'applied',
+    },
+  ],
   interview: [],
   offer: [],
   rejected: [],
