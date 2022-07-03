@@ -78,20 +78,19 @@ function TextEditor({
       >
         <Button
           onClick={() => {
-            onSave(value)
-          }}
-          style={{ margin: '0 0.2rem' }}
-        >
-          Save
-        </Button>
-        <Button
-          onClick={() => {
             onCancel()
           }}
-          style={{ margin: '0 0.2rem' }}
+          style={{ margin: '0 0.5rem 0 0' }}
           variant='secondary'
         >
           Cancel
+        </Button>
+        <Button
+          onClick={() => {
+            onSave(value)
+          }}
+        >
+          Save
         </Button>
       </div>
     </>

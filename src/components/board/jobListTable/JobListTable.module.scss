@@ -57,7 +57,7 @@
   align-items: center;
   justify-content: end;
   margin: 2.5rem 0 0;
-  & > button {
+  & > button:first-child {
     margin: 0 0.5rem 0 0;
   }
 }

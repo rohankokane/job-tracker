@@ -16,6 +16,9 @@ export type ModalAction =
       }
     }
   | {
+      type: 'EDIT_CANCEL'
+    }
+  | {
       type: 'EDIT_INFO'
     }
   | {
@@ -40,6 +43,11 @@ export default function modalReducer(
     case 'SHOW_INFO': {
       const { index, status } = action.payload
       return { modalToShow: 'INFO', index, status }
+    }
+    case 'EDIT_CANCEL': {
+      if (state.modalToShow === 'NONE') return state
+
+      return { ...state, modalToShow: 'INFO' }
     }
     case 'EDIT_INFO': {
       if (state.modalToShow === 'NONE') return state

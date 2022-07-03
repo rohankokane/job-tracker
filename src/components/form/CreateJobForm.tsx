@@ -38,7 +38,10 @@ const initialFormState = {
 type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
+  // eslint-disable-next-line no-debugger
+  debugger
   if (url === '') return url
+
   // let finalUrl
   return url.split(',').reduce((finalUrl, url) => {
     url = url.trim()
@@ -79,11 +82,15 @@ function CreateJobForm({
     validationSchema: formDataSchema,
     onSubmit: (values) => {
       if (initialValue !== undefined) {
+        let newLinks = initialValue.link
+        if (initialValue.link.trim() !== values.link.trim())
+          newLinks = URL(values.link.trim())
+
         const data = {
           ...initialValue,
           ...values,
           companyData: { ...selectedCompany },
-          link: URL(values.link),
+          link: newLinks,
           logoUrl: selectedCompany.logo || '',
           lastUpdated: Date.now(),
           prevStatus: initialValue.status,
@@ -235,6 +242,18 @@ function CreateJobForm({
           </p>
         </div>
         <div className={styles.formFooter}>
+          {initialValue !== undefined && (
+            <Button
+              variant='secondary'
+              onClick={() => {
+                modalDispatch?.({
+                  type: 'EDIT_CANCEL',
+                })
+              }}
+            >
+              Cancel
+            </Button>
+          )}
           <Button variant='primary' type='submit'>
             {initialValue === undefined ? 'Add job' : 'Update'}
           </Button>
