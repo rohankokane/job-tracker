@@ -38,12 +38,9 @@ const initialFormState = {
 type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
-  // eslint-disable-next-line no-debugger
-  debugger
   if (url === '') return url
-
-  // let finalUrl
   return url.split(',').reduce((finalUrl, url) => {
+    if (url.length === 0) return finalUrl
     url = url.trim()
     if (url.substring(0, 4) !== 'http') {
       finalUrl = finalUrl + 'http://' + url + ', '
@@ -233,7 +230,7 @@ function CreateJobForm({
           <label htmlFor='description'>Description</label>
           <textarea
             id='description'
-            rows={4}
+            rows={6}
             className={'w-100 '}
             {...getFieldProps('description')}
           />
@@ -255,7 +252,7 @@ function CreateJobForm({
             </Button>
           )}
           <Button variant='primary' type='submit'>
-            {initialValue === undefined ? 'Add job' : 'Update'}
+            {initialValue === undefined ? 'Save' : 'Update'}
           </Button>
         </div>
       </form>

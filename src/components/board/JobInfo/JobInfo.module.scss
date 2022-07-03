@@ -19,16 +19,19 @@
     text-transform: capitalize;
   }
 }
+.desc {
+  white-space: pre-line;
+}
 
 .linkPills {
-  display: block;
+  display: inline-block;
   font-size: 0.9rem;
   max-width: 100%;
   width: fit-content;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin: 0.3rem 0;
+  margin: 0.3rem 5px 0.3rem 0;
   padding: 3px 10px;
   // text-align: center;
   // margin: 0.2rem;

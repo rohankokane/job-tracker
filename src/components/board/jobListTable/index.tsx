@@ -25,7 +25,7 @@ type emptyList = {
   [k: string]: string
 }
 const emptyListMessage: emptyList = {
-  saved: 'Click the add button above, to save new job',
+  saved: 'Click the add button above, to save a new job',
   applied: 'Start applying asap!',
   interview: 'Be patient',
   offer: 'You are almost there',
@@ -107,7 +107,7 @@ const JobListTable = ({ state }: { state: StateType }) => {
                   keyTitle={key}
                 />
               ) : (
-                <span className={styles.unavailable}>
+                <span className={styles.unavailable} aria-hidden='true'>
                   {emptyListMessage[key]}
                 </span>
               )}

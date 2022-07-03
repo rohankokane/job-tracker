@@ -49,7 +49,7 @@ function JobInfo({ data }: { data: JobType }) {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {link}
+                    {link.split('//')[1]}
                   </a>
                 )
               )
@@ -62,20 +62,21 @@ function JobInfo({ data }: { data: JobType }) {
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Description:</div>
-        <div>
-          {data.description === ''
+        <p className={styles.desc}>
+          {data.description || '-'}
+          {/* {data.description === ''
             ? '-'
             : data.description
                 .split(/\n/)
-                .map((line) => <p key={line}>{line}</p>)}
-        </div>
+                .map((line) => <p key={line}>{line}</p>)} */}
+        </p>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>
           Notes:
           <span className='helper-msg'> (click on the text below to edit)</span>
         </div>
-        <div className='my-1'>
+        <div>
           {editNotes ? (
             <TextEditor
               initialValue={data.notes}
