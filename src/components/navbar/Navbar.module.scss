@@ -28,7 +28,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    svg {
+    & > svg {
       color: theme.$gray-900;
     }
     .helperText {

@@ -1,6 +1,6 @@
 import CreateJobModal from 'components/ModalForms/CreateJobModal'
 import Button from 'components/shared/Button'
-import { FiInfo } from 'react-icons/fi'
+import { FiInfo, FiPlus } from 'react-icons/fi'
 
 import styles from './Navbar.module.scss'
 
@@ -17,7 +17,10 @@ function NavBar() {
             </p>
 
             <CreateJobModal>
-              <Button variant='primary'>Add</Button>
+              <Button variant='primary'>
+                <FiPlus style={{ marginRight: '8px' }} size={18} />
+                Add
+              </Button>
             </CreateJobModal>
           </div>
         </ul>
