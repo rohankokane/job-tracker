@@ -28,17 +28,24 @@
 
 .linkPills {
   display: inline-block;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   max-width: 100%;
   width: fit-content;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   margin: 0.3rem 5px 0.3rem 0;
-  padding: 3px 10px;
+  padding: 3px 26px 3px 10px;
   // text-align: center;
   // margin: 0.2rem;
   border-radius: 1rem;
-  background-color: theme.$brand-100;
+  background-color: theme.$brand-50;
   color: theme.$brand-500;
+  position: relative;
+  line-height: 18px;
+  & > svg {
+    position: absolute;
+    right: 8px;
+    top: 5px;
+  }
 }

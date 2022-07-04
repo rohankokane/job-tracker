@@ -5,6 +5,7 @@ import TextEditor from 'components/shared/TextEditor'
 import { useState } from 'react'
 import TextViewer from 'components/shared/TextViewer'
 import { useDispatch } from 'hooks/useDispatch'
+import { FiExternalLink } from 'react-icons/fi'
 
 function JobInfo({ data }: { data: JobType }) {
   const [editNotes, setEditNotes] = useState(false)
@@ -53,7 +54,8 @@ function JobInfo({ data }: { data: JobType }) {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {link.split('//')[1]}
+                    {link.split('//')[1]} {'  '}
+                    <FiExternalLink />
                   </a>
                 )
               )

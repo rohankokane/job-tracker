@@ -126,7 +126,7 @@ const JobListTable = ({ state }: { state: StateType }) => {
           <div key={key + index} className={styles.listContainer}>
             <div className={styles.heading}>
               <span className={styles.headingIcon}>{HEADING[key]}</span>
-              {key.toUpperCase()} <Counter value={state[key].length} />
+              {key} <Counter value={state[key].length} />
             </div>
             <List key={key + index} dropId={key}>
               {state[key].length ? (
