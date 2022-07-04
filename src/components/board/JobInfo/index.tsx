@@ -34,6 +34,10 @@ function JobInfo({ data }: { data: JobType }) {
           <div className={styles.infoLabel}>Status:</div>
           <div className={styles.infoData}>{data.status}</div>
         </div>
+        <div className={styles.infoContainer}>
+          <div className={styles.infoLabel}>Salary:</div>
+          <div className={styles.infoData}>{data.salary || '-'}</div>
+        </div>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Links:</div>
@@ -56,10 +60,7 @@ function JobInfo({ data }: { data: JobType }) {
             : '-'}
         </div>
       </div>
-      <div className={styles.infoContainer}>
-        <div className={styles.infoLabel}>Salary:</div>
-        <div className={styles.infoData}>{data.salary || '-'}</div>
-      </div>
+
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Description:</div>
         <p className={styles.desc}>

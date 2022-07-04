@@ -2,10 +2,13 @@
 
 .grid2 {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
+
   .infoContainer {
-    flex-basis: 50%;
+    // flex-basis: 50%;
+    width: 230px;
   }
 }
 .infoContainer {

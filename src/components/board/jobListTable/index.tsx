@@ -12,7 +12,13 @@ import {
 } from 'components/shared/Modal'
 import { useDispatch } from 'hooks/useDispatch'
 import { useReducer, useState } from 'react'
-import { FiDelete, FiEdit, FiTrash, FiTrash2 } from 'react-icons/fi'
+import {
+  FiEdit,
+  FiMaximize,
+  FiMinimize,
+  FiTrash,
+  FiTrash2,
+} from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 import modalReducer from 'reducers/modalReducer'
 import { StateType } from 'types'
@@ -31,8 +37,11 @@ const emptyListMessage: emptyList = {
   offer: 'You are almost there',
   rejected: `It's a part of the process`,
 }
+const MODAL_SIZE_LARGE = 1400
+const MODAL_SIZE_SMALL = 520
 
 const JobListTable = ({ state }: { state: StateType }) => {
+  const [infoModalSize, setInfoModalSize] = useState(MODAL_SIZE_SMALL)
   const [modalState, modalDispatch] = useReducer(modalReducer, {
     modalToShow: 'NONE',
   })
@@ -63,6 +72,27 @@ const JobListTable = ({ state }: { state: StateType }) => {
 
   const infoModalButtons = (
     <>
+      <CircleButton
+        onClick={() => {
+          setInfoModalSize((prevState) => {
+            if (prevState === MODAL_SIZE_LARGE) return MODAL_SIZE_SMALL
+            return MODAL_SIZE_LARGE
+          })
+        }}
+        size={8}
+        aria-label={
+          infoModalSize === MODAL_SIZE_SMALL ? 'Maximize' : 'Minimize'
+        }
+      >
+        <VisuallyHidden>
+          {infoModalSize === MODAL_SIZE_SMALL ? 'Maximize' : 'Minimize'}
+        </VisuallyHidden>
+        {infoModalSize === MODAL_SIZE_SMALL ? (
+          <FiMaximize size={16} />
+        ) : (
+          <FiMinimize size={16} />
+        )}
+      </CircleButton>
       <CircleButton
         onClick={() => {
           modalDispatch({ type: 'EDIT_INFO' })
@@ -117,7 +147,12 @@ const JobListTable = ({ state }: { state: StateType }) => {
       })}
       {modalState.modalToShow === 'INFO' && modalData !== undefined && (
         <ModalContents
-          style={{ maxWidth: '520px', paddingTop: '1.2rem' }}
+          style={{
+            maxWidth: `${infoModalSize}px`,
+            paddingTop: '1.2rem',
+            transitionProperty: 'max-width',
+            transitionDuration: ' 500ms',
+          }}
           aria-label='job details'
         >
           <ModalHeader modalButtons={infoModalButtons}>
