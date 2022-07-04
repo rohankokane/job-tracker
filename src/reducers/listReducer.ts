@@ -24,10 +24,12 @@ export default function reducer(state: StateType, action: Action) {
       if (indexToUpdate === -1) return { ...state }
 
       const updatedObj = { ...restObj, status }
-      // remove
-      state[prevStatus].splice(indexToUpdate, 1)
-      //add at the start
-      state[status].unshift(updatedObj)
+      state[status][indexToUpdate] = updatedObj
+
+      // // remove
+      // state[prevStatus].splice(indexToUpdate, 1)
+      // //add at the start
+      // state[status].unshift(updatedObj)
 
       return { ...state }
     }
@@ -43,11 +45,11 @@ export default function reducer(state: StateType, action: Action) {
         notes,
         lastUpdated: Date.now(),
       }
-
-      // remove
-      state[status].splice(indexToUpdate, 1)
-      //add at the start
-      state[status].unshift(updatedObj)
+      state[status][indexToUpdate] = updatedObj
+      // // remove
+      // state[status].splice(indexToUpdate, 1)
+      // //add at the start
+      // state[status].unshift(updatedObj)
 
       return { ...state }
     }

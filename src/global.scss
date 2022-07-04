@@ -22,33 +22,43 @@ pre {
   margin: 0.2rem 0;
 }
 
-::-webkit-scrollbar {
-  width: 11px;
-  padding: 0;
-  height: 14px;
-  border: 1px solid transparent;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 100px;
-  border: 1px solid transparent;
+main {
+  ::-webkit-scrollbar {
+    width: 4px;
+    padding: 0;
+    margin: 0;
+    height: 8px;
+    // border: 1px solid transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    // border: 1px solid transparent;
 
-  border: 4px solid transparent;
-  box-shadow: inset 0 0 10px 10px rgb(25 4 69 / 15%);
-  background-color: transparent;
+    // border: 4px solid transparent;
+    box-shadow: inset 0 0 10px 10px rgb(25 4 69 / 15%);
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-track {
+    padding: 0;
+    margin: 0;
+    // border-width: 0px;
+    border: 4px solid transparent;
+    background-color: transparent;
+  }
 }
-:-webkit-scrollbar-track {
-  background-color: transparent;
-  border: 4px solid transparent;
+.btn {
+  display: flex;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: theme.$transition-duration theme.$transition-property-common;
 }
 .primary {
   &.btn {
-    display: inline-block;
     color: theme.$brand-50;
     background-color: theme.$brand-500;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     &:hover {
       background-color: theme.$brand-600;
     }
@@ -56,15 +66,19 @@ pre {
 }
 .secondary {
   &.btn {
-    display: inline-block;
     color: theme.$brand-600;
     background-color: transparent;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     &:hover {
-      background-color: theme.$brand-100;
+      background-color: theme.$brand-50;
+    }
+  }
+}
+.danger {
+  &.btn {
+    color: theme.$gray-100;
+    background-color: theme.$red-500;
+    &:hover {
+      background-color: theme.$red-600;
     }
   }
 }
@@ -152,4 +166,23 @@ textarea {
   font-size: 0.8rem;
   font-weight: 400;
   color: theme.$gray-900;
+}
+.nav-contain {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100%;
+  height: theme.$nav-height;
+  background-color: white;
+  box-shadow: theme.$drop-shadow-nav;
+  display: flex;
+  align-items: center;
+}
+.contain {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+[data-reach-dialog-content] {
+  width: 95% !important;
 }

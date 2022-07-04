@@ -10,6 +10,7 @@ import { statusList, statusListObject } from 'utils/status'
 import Button from 'components/shared/Button'
 import { useModalToggle } from 'components/shared/Modal'
 import { v4 as uuidv4 } from 'uuid'
+import { ModalAction } from 'reducers/modalReducer'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),
@@ -38,8 +39,8 @@ type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
   if (url === '') return url
-  // let finalUrl
   return url.split(',').reduce((finalUrl, url) => {
+    if (url.length === 0) return finalUrl
     url = url.trim()
     if (url.substring(0, 4) !== 'http') {
       finalUrl = finalUrl + 'http://' + url + ', '
@@ -52,10 +53,10 @@ const URL = (url: string) => {
 
 function CreateJobForm({
   initialValue,
-  onUpdateData,
+  modalDispatch,
 }: {
   initialValue?: JobType
-  onUpdateData?: () => void
+  modalDispatch?: React.Dispatch<ModalAction>
 }) {
   const dispatch = useDispatch()
   const setIsOpenModal = useModalToggle()
@@ -78,18 +79,27 @@ function CreateJobForm({
     validationSchema: formDataSchema,
     onSubmit: (values) => {
       if (initialValue !== undefined) {
+        let newLinks = initialValue.link
+        if (initialValue.link.trim() !== values.link.trim())
+          newLinks = URL(values.link.trim())
+
         const data = {
           ...initialValue,
           ...values,
           companyData: { ...selectedCompany },
-          link: URL(values.link),
+          link: newLinks,
           logoUrl: selectedCompany.logo || '',
           lastUpdated: Date.now(),
           prevStatus: initialValue.status,
         }
 
         dispatch({ type: 'UPDATE', payload: data })
-        onUpdateData?.()
+
+        const isStatusChanged = initialValue.status !== data.status
+        modalDispatch?.({
+          type: 'EDIT_SUCCESS',
+          payload: { isStatusChanged, status: data.status },
+        })
       } else {
         const companyData = selectedCompany
         const data = {
@@ -220,7 +230,7 @@ function CreateJobForm({
           <label htmlFor='description'>Description</label>
           <textarea
             id='description'
-            rows={4}
+            rows={6}
             className={'w-100 '}
             {...getFieldProps('description')}
           />
@@ -229,8 +239,20 @@ function CreateJobForm({
           </p>
         </div>
         <div className={styles.formFooter}>
+          {initialValue !== undefined && (
+            <Button
+              variant='secondary'
+              onClick={() => {
+                modalDispatch?.({
+                  type: 'EDIT_CANCEL',
+                })
+              }}
+            >
+              Cancel
+            </Button>
+          )}
           <Button variant='primary' type='submit'>
-            {initialValue === undefined ? 'Add job' : 'Update'}
+            {initialValue === undefined ? 'Save' : 'Update'}
           </Button>
         </div>
       </form>

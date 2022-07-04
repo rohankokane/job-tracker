@@ -1,16 +1,11 @@
 @use 'theme';
 
 .nav {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: theme.$nav-height;
-  background-color: white;
-  box-shadow: theme.$drop-shadow-nav;
   padding: 0 2rem;
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
   ul {
     width: 100%;
     height: 100%;
@@ -33,7 +28,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    svg {
+    & > svg {
       color: theme.$gray-900;
     }
     .helperText {

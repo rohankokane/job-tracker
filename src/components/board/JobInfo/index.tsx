@@ -5,6 +5,7 @@ import TextEditor from 'components/shared/TextEditor'
 import { useState } from 'react'
 import TextViewer from 'components/shared/TextViewer'
 import { useDispatch } from 'hooks/useDispatch'
+import { FiExternalLink } from 'react-icons/fi'
 
 function JobInfo({ data }: { data: JobType }) {
   const [editNotes, setEditNotes] = useState(false)
@@ -34,6 +35,10 @@ function JobInfo({ data }: { data: JobType }) {
           <div className={styles.infoLabel}>Status:</div>
           <div className={styles.infoData}>{data.status}</div>
         </div>
+        <div className={styles.infoContainer}>
+          <div className={styles.infoLabel}>Salary:</div>
+          <div className={styles.infoData}>{data.salary || '-'}</div>
+        </div>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Links:</div>
@@ -49,33 +54,32 @@ function JobInfo({ data }: { data: JobType }) {
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    {link}
+                    {link.split('//')[1]} {'  '}
+                    <FiExternalLink />
                   </a>
                 )
               )
             : '-'}
         </div>
       </div>
-      <div className={styles.infoContainer}>
-        <div className={styles.infoLabel}>Salary:</div>
-        <div className={styles.infoData}>{data.salary || '-'}</div>
-      </div>
+
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>Description:</div>
-        <div>
-          {data.description === ''
+        <p className={styles.desc}>
+          {data.description || '-'}
+          {/* {data.description === ''
             ? '-'
             : data.description
                 .split(/\n/)
-                .map((line) => <p key={line}>{line}</p>)}
-        </div>
+                .map((line) => <p key={line}>{line}</p>)} */}
+        </p>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.infoLabel}>
           Notes:
           <span className='helper-msg'> (click on the text below to edit)</span>
         </div>
-        <div className='my-1'>
+        <div>
           {editNotes ? (
             <TextEditor
               initialValue={data.notes}

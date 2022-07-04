@@ -42,6 +42,9 @@
         visibility: hidden;
 
         cursor: pointer;
+        @media screen and (max-width: 961px) {
+          visibility: visible;
+        }
       }
     }
     &:hover {

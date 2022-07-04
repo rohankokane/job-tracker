@@ -10,6 +10,7 @@
   align-items: center;
   width: 100%;
   padding: 0 0.8rem;
+  text-transform: capitalize;
   .headingIcon {
     font-size: 1.3rem;
     padding: 0px 12px 0px 0px;
@@ -51,4 +52,13 @@
   color: theme.$gray-900;
   text-align: center;
   margin-top: 2rem;
+}
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin: 2.5rem 0 0;
+  & > button:first-child {
+    margin: 0 0.5rem 0 0;
+  }
 }

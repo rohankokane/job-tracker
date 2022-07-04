@@ -2,37 +2,48 @@ import { Draggable } from 'react-beautiful-dnd'
 import { JobType } from 'types'
 import styles from './JobCard.module.scss'
 import { FiTrash } from 'react-icons/fi'
-import { useDispatch } from 'hooks/useDispatch'
 import CircleButton from 'components/shared/CircleButton'
 import Logo from 'components/shared/Logo'
 import { timeSince } from 'utils/misc'
+import { ModalAction } from 'reducers/modalReducer'
+import { useModalToggle } from 'components/shared/Modal'
+import { FaTrash, FaTrashAlt } from 'react-icons/fa'
+import React from 'react'
 
 interface CardProps {
-  id: string
   index: number
-  jobData: JobType
-  onClick: (id: string, status: string) => void
+  status: string
+  logoUrl: string | undefined
+  company: string
+  jobTitle: string
+  lastUpdated: number
+  modalDispatch: React.Dispatch<ModalAction>
 }
-function JobCard({ id, index, jobData, onClick }: CardProps) {
-  const dispatch = useDispatch()
-  const onDelete: React.MouseEventHandler<HTMLElement> = (e) => {
-    e.stopPropagation()
-    const [listId, itemIndex] = id.split('-')
-    dispatch({
-      type: 'DELETE',
-      payload: {
-        listId,
-        itemIndex,
-      },
-    })
-  }
+
+function JobCard({
+  index,
+  status,
+  company,
+  jobTitle,
+  logoUrl,
+  lastUpdated,
+  modalDispatch,
+}: CardProps) {
+  const setIsModalOpen = useModalToggle()
+
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
-    // console.log('clicked', index, jobData)
-    onClick(jobData.id, jobData.status)
+    setIsModalOpen(true)
+    modalDispatch({ type: 'SHOW_INFO', payload: { status, index } })
+  }
+  const handleDelete: React.MouseEventHandler<HTMLElement> = (e) => {
+    e.stopPropagation()
+    setIsModalOpen(true)
+    modalDispatch({ type: 'CONFIRM_DELETE', payload: { status, index } })
   }
 
+  const id = `${lastUpdated}-${index}`
   return (
-    <Draggable draggableId={id.toString()} index={index}>
+    <Draggable draggableId={id} index={index}>
       {(provided, snapshot) => (
         <div
           {...provided.draggableProps}
@@ -47,27 +58,23 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
           <div className={styles.cardContainer}>
             <div className={styles.cardContent}>
               <div className={styles.cardCompany}>
-                <Logo
-                  size={7.5}
-                  url={jobData?.logoUrl}
-                  text={jobData.company}
-                />
+                <Logo size={7.5} url={logoUrl || undefined} text={company} />
                 <div className={styles.cardText}>
-                  <div className={styles.companyName}>{jobData.company}</div>
-                  <div className={styles.jobTitle}>{jobData.jobTitle}</div>
+                  <div className={styles.companyName}>{company}</div>
+                  <div className={styles.jobTitle}>{jobTitle}</div>
                 </div>
               </div>
               <CircleButton
                 className={styles.deleteBtn}
                 aria-label='delete'
-                onClick={onDelete}
+                onClick={handleDelete}
                 size={6}
               >
-                <FiTrash size={13} />
+                <FaTrash color='gray' size={12} />
               </CircleButton>
             </div>
             <div className={styles.time}>
-              last updated: {timeSince(jobData.lastUpdated)}
+              last updated: {timeSince(lastUpdated)}
             </div>
           </div>
         </div>
@@ -76,4 +83,5 @@ function JobCard({ id, index, jobData, onClick }: CardProps) {
   )
 }
 
-export default JobCard
+// export default JobCard
+export default React.memo(JobCard)
