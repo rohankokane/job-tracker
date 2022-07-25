@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import { CompanyData, JobType, StateType } from 'types'
+import { CompanyData, JobType } from 'types'
 import { useEffect, useState } from 'react'
 import DropdownCombobox from 'components/shared/SearchBox/SearchComboBox'
 import DropdownSelect from 'components/shared/DropdownSelect'
@@ -35,7 +35,7 @@ const initialFormState = {
   status: 'saved',
 }
 
-type FormDataType = Yup.InferType<typeof formDataSchema>
+// type FormDataType = Yup.InferType<typeof formDataSchema>
 
 const URL = (url: string) => {
   if (url === '') return url

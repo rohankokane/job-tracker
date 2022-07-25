@@ -1,7 +1,6 @@
-import { MouseEventHandler, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
 import Button from '../Button'
-import styles from './TextEditor.module.scss'
 
 const modules = {
   toolbar: [

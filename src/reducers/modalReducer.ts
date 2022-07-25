@@ -1,5 +1,3 @@
-import { useBoard } from 'hooks/useBoard'
-import { JobType } from 'types'
 export type ModalAction =
   | {
       type: 'CONFIRM_DELETE'

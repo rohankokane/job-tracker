@@ -4,9 +4,8 @@ import { callAll } from 'utils/callAll'
 import CircleButton from '../CircleButton'
 import Dialog from '../Dialog'
 import { FiX } from 'react-icons/fi'
-import { DialogProps } from '@reach/dialog'
 
-type ModalContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+// type ModalContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>]
 
 const ModalValueContext = React.createContext(null as unknown as boolean)
 const ModalToggleContext = React.createContext(
