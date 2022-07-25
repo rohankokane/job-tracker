@@ -29,7 +29,7 @@ function JobCard({
 }: CardProps) {
   const setIsModalOpen = useModalToggle()
 
-  const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
+  const handleClick = () => {
     setIsModalOpen(true)
     modalDispatch({ type: 'SHOW_INFO', payload: { status, index } })
   }

@@ -9,7 +9,8 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   setCompanyData: React.Dispatch<React.SetStateAction<CompanyData | undefined>>
   companyData: CompanyData | undefined
 }
-
+// no being used
+// attempt to create a searchbox from scratch but ended up using combo-box
 function SearchBox(props: Props) {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchBoxFocus, setSearchBoxFocus] = useState(false)
@@ -158,4 +159,4 @@ function SearchBox(props: Props) {
   )
 }
 
-export default SearchBox
+// export default SearchBox
