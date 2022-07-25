@@ -5,7 +5,7 @@ import { clientsClaim } from 'workbox-core'
 import { ExpirationPlugin } from 'workbox-expiration'
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
-import { StaleWhileRevalidate } from 'workbox-strategies'
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -55,3 +55,29 @@ self.addEventListener('message', (event) => {
     self.skipWaiting()
   }
 })
+
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.googleapis.com',
+  new StaleWhileRevalidate({
+    cacheName: 'google-fonts-stylesheets',
+    plugins: [new ExpirationPlugin({ maxEntries: 10 })],
+  })
+)
+
+registerRoute(
+  ({ url }) => url.origin === 'https://fonts.gstatic.com',
+  new CacheFirst({
+    cacheName: 'google-fonts-webfonts',
+    plugins: [new ExpirationPlugin({ maxEntries: 20 })],
+  })
+)
+
+registerRoute(
+  ({ url }) => url.origin === 'https://logo.clearbit.com',
+  new CacheFirst({
+    cacheName: 'company-logos',
+    plugins: [
+      new ExpirationPlugin({ maxAgeSeconds: 7776000, maxEntries: 200 }),
+    ],
+  })
+)
