@@ -1,4 +1,4 @@
-import { Action, JobType } from 'types'
+import { Action } from 'types'
 import { StateType } from 'types'
 
 export default function reducer(state: StateType, action: Action) {

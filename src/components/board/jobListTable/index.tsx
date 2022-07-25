@@ -17,7 +17,6 @@ import {
   FiMaximize,
   FiMinimize,
   FiTrash,
-  FiTrash2,
 } from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 import modalReducer from 'reducers/modalReducer'

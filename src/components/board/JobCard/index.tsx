@@ -1,13 +1,11 @@
 import { Draggable } from 'react-beautiful-dnd'
-import { JobType } from 'types'
 import styles from './JobCard.module.scss'
-import { FiTrash } from 'react-icons/fi'
 import CircleButton from 'components/shared/CircleButton'
 import Logo from 'components/shared/Logo'
 import { timeSince } from 'utils/misc'
 import { ModalAction } from 'reducers/modalReducer'
 import { useModalToggle } from 'components/shared/Modal'
-import { FaTrash, FaTrashAlt } from 'react-icons/fa'
+import { FaTrash } from 'react-icons/fa'
 import React from 'react'
 
 interface CardProps {
@@ -31,7 +29,7 @@ function JobCard({
 }: CardProps) {
   const setIsModalOpen = useModalToggle()
 
-  const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {
+  const handleClick = () => {
     setIsModalOpen(true)
     modalDispatch({ type: 'SHOW_INFO', payload: { status, index } })
   }

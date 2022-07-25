@@ -1,4 +1,4 @@
-import { JobType, StateType } from './state'
+import { JobType } from './state'
 import { DraggableLocation } from 'react-beautiful-dnd'
 
 export type Action =
