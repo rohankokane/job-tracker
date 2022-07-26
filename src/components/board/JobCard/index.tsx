@@ -72,7 +72,7 @@ function JobCard({
               </CircleButton>
             </div>
             <div className={styles.time}>
-              last updated: {timeSince(lastUpdated)}
+              Last updated: {timeSince(lastUpdated)}
             </div>
           </div>
         </div>

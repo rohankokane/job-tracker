@@ -12,12 +12,7 @@ import {
 } from 'components/shared/Modal'
 import { useDispatch } from 'hooks/useDispatch'
 import { useReducer, useState } from 'react'
-import {
-  FiEdit,
-  FiMaximize,
-  FiMinimize,
-  FiTrash,
-} from 'react-icons/fi'
+import { FiEdit, FiMaximize, FiMinimize, FiTrash } from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 import modalReducer from 'reducers/modalReducer'
 import { StateType } from 'types'
@@ -148,6 +143,7 @@ const JobListTable = ({ state }: { state: StateType }) => {
         <ModalContents
           style={{
             maxWidth: `${infoModalSize}px`,
+            marginTop: '8vh',
             paddingTop: '1.2rem',
             transitionProperty: 'max-width',
             transitionDuration: ' 500ms',
