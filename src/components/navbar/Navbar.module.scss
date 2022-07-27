@@ -19,7 +19,7 @@
       align-items: center;
       height: 100%;
       width: auto;
-      border-bottom: 2px solid theme.$brand-400;
+      box-shadow: theme.$brand-400 0 1px 0 0, inset theme.$brand-400 0 -1px 0 0;
       font-weight: 500;
     }
   }

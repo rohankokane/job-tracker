@@ -11,14 +11,15 @@
     height: 100%;
     padding: 0.8rem 0.6rem 0.4rem;
     min-height: 6rem;
-    background-color: white;
+    background-color: theme.$base;
     border-radius: 5px;
     box-shadow: theme.$card-shadow;
     transition: background-color 0.1s ease-in;
     .time {
-      font-size: 0.75rem;
+      font-size: 0.812rem;
       font-weight: 500;
       color: theme.$gray-900;
+      letter-spacing: -0.2px;
     }
     .cardContent {
       display: flex;
