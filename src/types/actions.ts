@@ -29,3 +29,35 @@ export type Action =
         itemIndex: string
       }
     }
+
+export type ModalAction =
+  | {
+      type: 'CONFIRM_DELETE'
+      payload: {
+        index: number
+        status: string
+      }
+    }
+  | {
+      type: 'SHOW_INFO'
+      payload: {
+        index: number
+        status: string
+      }
+    }
+  | {
+      type: 'EDIT_CANCEL'
+    }
+  | {
+      type: 'EDIT_INFO'
+    }
+  | {
+      type: 'EDIT_SUCCESS'
+      payload: {
+        isStatusChanged: boolean
+        status: string
+      }
+    }
+  | {
+      type: 'CLOSE_MODAL'
+    }

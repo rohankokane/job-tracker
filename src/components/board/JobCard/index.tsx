@@ -1,12 +1,12 @@
+import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import styles from './JobCard.module.scss'
 import CircleButton from 'components/shared/CircleButton'
 import Logo from 'components/shared/Logo'
 import { timeSince } from 'utils/misc'
-import { ModalAction } from 'reducers/modalReducer'
+import { ModalAction } from 'types'
 import { useModalToggle } from 'components/shared/Modal'
 import { FaTrash } from 'react-icons/fa'
-import React from 'react'
 
 interface CardProps {
   index: number

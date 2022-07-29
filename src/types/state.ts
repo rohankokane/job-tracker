@@ -23,3 +23,7 @@ export type CompanyData = {
   logo: string
   name: string
 }
+
+export type ModalState =
+  | { index: number; status: string; modalToShow: 'EDIT' | 'INFO' | 'DELETE' }
+  | { modalToShow: 'NONE' }

@@ -3,6 +3,7 @@ import { StateType } from 'types'
 
 export default function reducer(state: StateType, action: Action) {
   switch (action.type) {
+    // add new job
     case 'ADD': {
       const dataToBeAdded = action.payload
       const { status } = dataToBeAdded
@@ -13,7 +14,7 @@ export default function reducer(state: StateType, action: Action) {
         ...state,
       }
     }
-
+    // update job details
     case 'UPDATE': {
       const data = action.payload
       const { status, prevStatus, ...restObj } = data
@@ -33,7 +34,7 @@ export default function reducer(state: StateType, action: Action) {
 
       return { ...state }
     }
-
+    // notes
     case 'UPDATE_NOTES': {
       const { status, id, notes } = action.payload
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import { ModalAction } from 'reducers/modalReducer'
-import { JobType } from 'types'
+import { JobType, ModalAction } from 'types'
 import JobCard from '../JobCard'
 
 function JobList({

@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import { useDispatch } from 'hooks/useDispatch'
 import styles from './CreateJobForm.module.scss'
 import * as Yup from 'yup'
-import { CompanyData, JobType } from 'types'
+import { CompanyData, JobType, ModalAction } from 'types'
 import { useEffect, useState } from 'react'
 import DropdownCombobox from 'components/shared/SearchBox/SearchComboBox'
 import DropdownSelect from 'components/shared/DropdownSelect'
@@ -10,7 +10,6 @@ import { statusList, statusListObject } from 'utils/status'
 import Button from 'components/shared/Button'
 import { useModalToggle } from 'components/shared/Modal'
 import { v4 as uuidv4 } from 'uuid'
-import { ModalAction } from 'reducers/modalReducer'
 
 const formDataSchema = Yup.object().shape({
   jobTitle: Yup.string().required('Required'),

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ReactQuill from 'react-quill'
 import Button from '../Button'
 
@@ -38,11 +38,8 @@ function TextEditor({
   onCancel: () => void
   onSave: (value: string) => void
 }) {
-  const [value, setValue] = useState('')
-  useEffect(() => {
-    if (initialValue === undefined) return
-    setValue(initialValue)
-  }, [])
+  const [value, setValue] = useState(initialValue ?? '')
+
   const onChange = (value: string) => {
     setValue(value)
   }

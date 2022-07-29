@@ -1,7 +1,6 @@
-import useLocalStorageState from 'hooks/useLocalStorage'
 import { createContext } from 'react'
-import { Action } from 'types'
-import { StateType } from 'types'
+import useLocalStorageState from 'hooks/useLocalStorage'
+import { Action, StateType } from 'types'
 import { InitialState } from 'utils/mockData'
 
 type DispatchType = React.Dispatch<Action>
